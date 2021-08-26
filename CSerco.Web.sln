@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31613.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSerco.Web", "CSerco.Web\CSerco.Web.csproj", "{A1997FB4-E850-4382-B17E-EB858C56A2E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSerco.SQL", "CSerco.SQL\CSerco.SQL.csproj", "{B2505A66-34C9-4547-AFE5-132A865BE2A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1997FB4-E850-4382-B17E-EB858C56A2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1997FB4-E850-4382-B17E-EB858C56A2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1997FB4-E850-4382-B17E-EB858C56A2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1997FB4-E850-4382-B17E-EB858C56A2E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2505A66-34C9-4547-AFE5-132A865BE2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2505A66-34C9-4547-AFE5-132A865BE2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2505A66-34C9-4547-AFE5-132A865BE2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2505A66-34C9-4547-AFE5-132A865BE2A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {076B4823-FA28-4952-B8AD-5A6F1AB0A4AD}
+	EndGlobalSection
+EndGlobal
