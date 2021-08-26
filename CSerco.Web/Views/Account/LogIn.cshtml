@@ -1,0 +1,58 @@
+﻿@model CSerco.Web.Models.UserVM
+
+@{
+    ViewBag.Title = "Sign In";
+    Layout = null;
+}
+
+@Styles.Render("~/Content/css")
+<link href="~/Content/Login.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="wrapper fadeInDown">
+        <!-- Login Form -->
+        <div class="form-horizontal" id="formContent">
+            <br />
+            <div class="fadeIn first">
+                <img src="~/Content/Img/LOGO.PNG" id="icon" alt="FerroElectronica" />
+            </div>
+            <hr />
+            <br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-5 fadeIn second" })*@
+                <label class="control-label col-md-5 fadeIn second">Usuario: </label>
+                <br />
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "fadeIn second", @id = "login", @placeholder = "Usuario" } })<br />
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger fadeIn third" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-5 fadeIn third" })*@
+                <label class="control-label col-md-5 fadeIn second">Contraseña: </label>
+                <div class="col-md-12">
+                    @Html.Password("Password", null, new { @class = "fadeIn third", @id = "password", @placeholder = "**************" })<br />
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger fadeIn third" })
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-12">
+                    <input type="submit" value="Iniciar Sesion" class="fadeIn fourth btn" />
+                </div>
+            </div>
+            <hr />
+            <div id="formFooter">
+                <a class="underlineHover fadeIn fourth" href="#">¿Olvidaste tu contraseña?</a>
+            </div>
+        </div>
+    </div>
+}
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
