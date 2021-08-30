@@ -12,20 +12,20 @@ namespace CSerco.SQL.DataContext
     using System;
     using System.Collections.Generic;
     
-    public partial class RolesUsuario
+    public partial class TipoAcuerdo
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RolesUsuario()
+        public TipoAcuerdo()
         {
-            this.Usuarios = new HashSet<Usuarios>();
+            this.Gestion = new HashSet<Gestion>();
         }
     
-        public int IdRol { get; set; }
-        public string RolName { get; set; }
+        public int IdTipo { get; set; }
+        public string Tipo { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
+        public virtual ICollection<Gestion> Gestion { get; set; }
     }
 }

@@ -50,6 +50,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataContext\Cartera.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\CheckIn.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Cliente.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataContext\CSerCoDM.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -65,7 +74,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CSerCoDM.edmx</DependentUpon>
     </Compile>
+    <Compile Include="DataContext\Departamentos.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\fnPager_Result.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Gestion.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Justify.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\Municipios.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataContext\RolesUsuario.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataContext\TipoAcuerdo.cs">
       <DependentUpon>CSerCoDM.tt</DependentUpon>
     </Compile>
     <Compile Include="DataContext\Usuarios.cs">

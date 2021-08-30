@@ -39,6 +39,22 @@ namespace CSerco.Web.Services
             }
         }
 
+        public List<SelectListItem> getRoles()
+        {
+            var roleLst = db.RolesUsuario.Where(x => x.Status == 1).ToList();
+            List<SelectListItem> roles = new List<SelectListItem>();
+            foreach(var item in roleLst)
+            {
+                roles.Add(new SelectListItem
+                {
+                    Text = item.RolName,
+                    Value = item.IdRol.ToString()
+                });
+            }
+
+            return roles;
+        }
+
         public String Encrypt(string pass)
         {
             byte[] salt;

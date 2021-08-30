@@ -15,10 +15,10 @@ namespace CSerco.Web.Filters
 
             if(user == null)
             {
-                filterContext.Result = new RedirectResult("~/Account/Login");
+                filterContext.Result = new RedirectResult("~/Account/LogIn");
             }else if(user != null && userRol == "3")
             {
-                filterContext.Result = new RedirectResult("~/Account/Login");
+                filterContext.Result = new RedirectResult("~/Account/LogIn");
             }
             base.OnActionExecuted(filterContext);
         }

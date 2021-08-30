@@ -1,4 +1,4 @@
-﻿@model CSerco.Web.Models.UserVM
+﻿@model CSerco.Web.Models.SignInVM
 
 @{
     ViewBag.Title = "Sign In";
@@ -17,7 +17,7 @@
         <div class="form-horizontal" id="formContent">
             <br />
             <div class="fadeIn first">
-                <img src="~/Content/Img/LOGO.PNG" id="icon" alt="FerroElectronica" />
+                <img src="~/Content/Img/fullLogo.gif" id="icon" alt="FerroElectronica" />
             </div>
             <hr />
             <br />
@@ -56,3 +56,24 @@
 
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
+
+@section scripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var message = "@ViewBag.Message"
+            if (message == "BAD") {
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Parece que algo salio mal, por favor intente nuevamente!",
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#008648",
+                    confirmButtonText: "Aceptar!",
+                    closeOnConfirm: true,
+                })
+            }
+        })
+    </script>
+
+}

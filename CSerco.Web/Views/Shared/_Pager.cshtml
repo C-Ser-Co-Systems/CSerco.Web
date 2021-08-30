@@ -1,0 +1,40 @@
+﻿@model CSerco.Web.Models.BaseModel
+
+@{
+    var CantidadPaginas = (int)Math.Ceiling((double)Model.TotalReg / Model.RegPerPage);
+    int Inicial = 1;
+    var radio = 2;
+    var cantidadMaximaDePaginas = radio * 2 + 1;
+    int Final = (CantidadPaginas > cantidadMaximaDePaginas) ? cantidadMaximaDePaginas : CantidadPaginas;
+
+    if (Model.Page > radio + 1)
+    {
+        Inicial = Model.Page - radio;
+        if (CantidadPaginas > Model.Page + radio)
+        {
+            Final = Model.Page + radio;
+        }
+        else
+        {
+            Final = CantidadPaginas;
+        }
+    }
+}
+
+<nav aria-label="Page Navigation">
+    <ul class="pagination">
+        <li class="page-item">@Html.ActionLink("Primera", null, new { page = 1 }, new { @class = "page-link" })</li>
+        @for (int i = Inicial; i <= Final; i++)
+        {
+            if (i == Model.Page)
+            {
+                <li class="page-item active">@Html.ActionLink(i.ToString(), null, new { page = i }, new { @class = "page-link" })</li>
+            }
+            else
+            {
+                <li class="page-item">@Html.ActionLink(i.ToString(), null, new { page = i }, new { @class = "page-link" })</li>
+            }
+        }
+        <li class="page-item">@Html.ActionLink("Ultima", null, new { page = CantidadPaginas }, new { @class = "page-link" })</li>
+    </ul>
+</nav>

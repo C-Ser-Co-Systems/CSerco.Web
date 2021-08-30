@@ -4,10 +4,29 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fb9c249ca99e447c9c1bdad015a03a09" Name="Diagram1">
-        <EntityTypeShape EntityType="CSercoDBModel.RolesUsuario" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="CSercoDBModel.fk_RolUsuario" ManuallyRouted="false" />
+      <Diagram DiagramId="fb9c249ca99e447c9c1bdad015a03a09" Name="Diagram1" ZoomLevel="26">
+        <EntityTypeShape EntityType="CSercoDBModel.Cartera" Width="1.5" PointX="11.125" PointY="3.375" />
+        <EntityTypeShape EntityType="CSercoDBModel.CheckIn" Width="1.5" PointX="11.125" PointY="12.5" />
+        <EntityTypeShape EntityType="CSercoDBModel.Cliente" Width="1.5" PointX="11.125" PointY="7.25" />
+        <EntityTypeShape EntityType="CSercoDBModel.Departamentos" Width="1.5" PointX="8.875" PointY="9" />
+        <EntityTypeShape EntityType="CSercoDBModel.Gestion" Width="1.5" PointX="13.375" PointY="7.5" />
+        <EntityTypeShape EntityType="CSercoDBModel.Justify" Width="1.5" PointX="13.375" PointY="12.75" />
+        <EntityTypeShape EntityType="CSercoDBModel.Municipios" Width="1.5" PointX="8.875" PointY="11.875" />
+        <EntityTypeShape EntityType="CSercoDBModel.RolesUsuario" Width="1.5" PointX="6.625" PointY="5.5" />
+        <EntityTypeShape EntityType="CSercoDBModel.TipoAcuerdo" Width="1.5" PointX="11.125" PointY="0.5" />
+        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="8.875" PointY="5" />
+        <AssociationConnector Association="CSercoDBModel.fk_CUser" />
+        <AssociationConnector Association="CSercoDBModel.fk_CheckIn" />
+        <AssociationConnector Association="CSercoDBModel.fk_CkUser" />
+        <AssociationConnector Association="CSercoDBModel.fk_Dpto" />
+        <AssociationConnector Association="CSercoDBModel.fk_GCliente" />
+        <AssociationConnector Association="CSercoDBModel.fk_Mncpo" />
+        <AssociationConnector Association="CSercoDBModel.fk_User" />
+        <AssociationConnector Association="CSercoDBModel.fk_GDpto" />
+        <AssociationConnector Association="CSercoDBModel.fk_idDpto" />
+        <AssociationConnector Association="CSercoDBModel.fk_GMncpo" />
+        <AssociationConnector Association="CSercoDBModel.fk_IdTipo" />
+        <AssociationConnector Association="CSercoDBModel.fk_RolUsuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

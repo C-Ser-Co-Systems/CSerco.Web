@@ -12,6 +12,8 @@ namespace CSerco.SQL.DataContext
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class CSercoDBEntities1 : DbContext
     {
@@ -25,7 +27,33 @@ namespace CSerco.SQL.DataContext
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Cartera> Cartera { get; set; }
+        public virtual DbSet<CheckIn> CheckIn { get; set; }
+        public virtual DbSet<Cliente> Cliente { get; set; }
+        public virtual DbSet<Departamentos> Departamentos { get; set; }
+        public virtual DbSet<Gestion> Gestion { get; set; }
+        public virtual DbSet<Justify> Justify { get; set; }
+        public virtual DbSet<Municipios> Municipios { get; set; }
         public virtual DbSet<RolesUsuario> RolesUsuario { get; set; }
+        public virtual DbSet<TipoAcuerdo> TipoAcuerdo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+    
+        [DbFunction("CSercoDBEntities1", "fnPager")]
+        public virtual IQueryable<fnPager_Result> fnPager(Nullable<int> page, Nullable<int> cantReg, Nullable<int> idUser)
+        {
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var cantRegParameter = cantReg.HasValue ?
+                new ObjectParameter("cantReg", cantReg) :
+                new ObjectParameter("cantReg", typeof(int));
+    
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fnPager_Result>("[CSercoDBEntities1].[fnPager](@page, @cantReg, @IdUser)", pageParameter, cantRegParameter, idUserParameter);
+        }
     }
 }

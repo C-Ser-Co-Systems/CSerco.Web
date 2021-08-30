@@ -1,0 +1,90 @@
+﻿@model CSerco.Web.Models.UserVM
+
+@{
+    ViewBag.Title = "NewUser";
+    Layout = "~/Views/Shared/_SysLayout.cshtml";
+}
+
+<center><h1><b>Agregar Usuario:</b></h1></center>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="control-label col-md-5 fadeIn second">Nombre de Usuario: </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="control-label col-md-5 fadeIn second">Rol de Usuario: </label>
+                <div class="col-md-10">
+                    @Html.DropDownListFor(x => x.IdRol, new List<SelectListItem>(ViewBag.Role), "Seleccione un rol", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdRol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="control-label col-md-5 fadeIn second">Contraseña: </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+            <div class="form-group">
+                <label class="control-label col-md-5 fadeIn second">Confirmar Contraseña: </label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+        <div class="col-sm-6 col-md-6 col-lg-6">
+                <input type="submit" value="Agregar Usuario" class="btn btn-success" />
+                <input type="button" value="Cancelar" class="btn btn-danger" />
+        </div>
+        <div class="col-sm-3 col-md-3 col-lg-3"></div>
+    </div>
+</div>
+}
+
+
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var message = "@ViewBag.Message"
+            if (message == "BAD") {
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Parece que algo salio mal, por favor intente nuevamente!",
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#008648",
+                    confirmButtonText: "Aceptar!",
+                    closeOnConfirm: true,
+                })
+            }
+        })
+    </script>
+}

@@ -12,20 +12,22 @@ namespace CSerco.SQL.DataContext
     using System;
     using System.Collections.Generic;
     
-    public partial class RolesUsuario
+    public partial class CheckIn
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RolesUsuario()
+        public CheckIn()
         {
-            this.Usuarios = new HashSet<Usuarios>();
+            this.Justify = new HashSet<Justify>();
         }
     
-        public int IdRol { get; set; }
-        public string RolName { get; set; }
-        public string Descripcion { get; set; }
+        public int IdCheck { get; set; }
+        public int IdUser { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
+        public string Hora { get; set; }
         public Nullable<int> Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuarios> Usuarios { get; set; }
+        public virtual ICollection<Justify> Justify { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

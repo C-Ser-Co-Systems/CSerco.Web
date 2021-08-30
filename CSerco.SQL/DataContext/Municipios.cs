@@ -12,30 +12,23 @@ namespace CSerco.SQL.DataContext
     using System;
     using System.Collections.Generic;
     
-    public partial class Usuarios
+    public partial class Municipios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Usuarios()
+        public Municipios()
         {
-            this.Cartera = new HashSet<Cartera>();
-            this.CheckIn = new HashSet<CheckIn>();
             this.Cliente = new HashSet<Cliente>();
+            this.Gestion = new HashSet<Gestion>();
         }
     
-        public int IdUser { get; set; }
-        public int IdRol { get; set; }
-        public string UserName { get; set; }
-        public string PasswordHash { get; set; }
-        public Nullable<System.DateTime> FechaRegistro { get; set; }
-        public Nullable<System.DateTime> FLastUpdate { get; set; }
-        public Nullable<int> Status { get; set; }
+        public int IdMncpo { get; set; }
+        public string MncpoName { get; set; }
+        public int IdDpto { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cartera> Cartera { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CheckIn> CheckIn { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente> Cliente { get; set; }
-        public virtual RolesUsuario RolesUsuario { get; set; }
+        public virtual Departamentos Departamentos { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gestion> Gestion { get; set; }
     }
 }
