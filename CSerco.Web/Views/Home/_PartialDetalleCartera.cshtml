@@ -1,0 +1,130 @@
+﻿@model CSerco.Web.Models.CarteraVM
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Detalles de Cliente de Cartera.</h5>
+            <button type="button" class="btn btn-close close" aria-label="Close"><span aria-hidden="true"></span></button>
+        </div>
+        <div class="modal-body">
+            <div class="grid-containermodalsito">
+                <div class="modalcuerpo">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Numero de Credito:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-upc-scan"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.NCredito, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Nombre Completo:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.Nombre, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Saldo Total:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-currency-dollar"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.SaldoK, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Monto Moroso:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-currency-dollar"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.MontVen, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Interés Vencido:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-currency-dollar"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.InteresVen, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Días Mora:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-calendar-week-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.DiasMora, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>Reestructuracion:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-calendar-week-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.Reestructuracion, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-4">
+                            <label>OID:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-bookmark-check-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.OID, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Correo:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-envelope-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.Correo, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-6 col-lg-6">
+                            <label>Telefono:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-telephone-fill"></i></div>
+                                </div>
+                                @Html.EditorFor(model => model.Telefono, "", new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12">
+                            <label>Direccion:</label>
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="bi bi-file-earmark-medical-fill"></i></div>
+                                </div>
+                                @Html.TextAreaFor(model => model.Direccion, new { @class = "form-control", @disabled = "true" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center>
+            <div class="modal-footer text-center">
+                <button type="button" class="btn btn-secondary CerrarModal">Cerrar</button>
+            </div>
+        </center>
+    </div>
+</div>

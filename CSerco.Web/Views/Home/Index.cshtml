@@ -1,46 +1,53 @@
-﻿@model CSerco.Web.Models.CarteraVM
+﻿@using CSerco.Web.Models;
+@model CSerco.Web.Models.CarteraVM
 @{
     ViewBag.Title = "C Ser-Co - Principal";
     Layout = "~/Views/Shared/_SysLayout.cshtml";
 }
 <br />
-<center><h1>Clientes en Cartera.</h1></center>
+<center><h1>Cartera Asignada de clientes.</h1></center>
 <br />
 <div class="row">
-    <table class="table table-hover table-striped">
+    <table class="table table-hover table-striped text-center">
         <thead>
             <tr style="background-color: #008648">
                 <th>Codigo de Credito:</th>
                 <th>Nombre Completo:</th>
                 <th>Saldo:</th>
-                <th>Monto Moroso:</th>
-                <th>Interés Vencido:</th>
-                <th>Dias Mora:</th>
-                <th>Direccion:</th>
-                <th>REES:</th>
-                <th>OID</th>
-                <th>Telefono:</th>
-                <th>Correo:</th>
-                <th></th>
+                @*<th>Monto Moroso:</th>
+        <th>Interés Vencido:</th>
+        <th>Dias Mora:</th>
+        <th>Direccion:</th>
+        <th>REES:</th>
+        <th>OID</th>
+        <th>Telefono:</th>
+        <th>Correo:</th>*@
+                <th>Ver Detalle</th>
+                <th>Agregar Gestión</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.CartLst)
             {
-                <tr id="tr_@item.IdCartera">
-                    <td>@item.NCredito</td>
-                    <td>@item.Nombre</td>
-                    <td>@item.SaldoK</td>
-                    <td>@item.MontVen</td>
-                    <td>@item.InteresVen</td>
-                    <td>@item.DiasMora</td>
-                    <td>@item.Direccion</td>
-                    <td>@item.Reestructuracion</td>
-                    <td>@item.OID</td>
-                    <td>@item.Telefono</td>
-                    <td>@item.Correo</td>
-                    <td></td>
-                </tr>
+            <tr id="tr_@item.IdCartera">
+                <td>@item.NCredito</td>
+                <td>@item.Nombre</td>
+                <td>$@item.SaldoK</td>
+                @*<td>@item.MontVen</td>
+        <td>@item.InteresVen</td>
+        <td>@item.DiasMora</td>
+        <td>@item.Direccion</td>
+        <td>@item.Reestructuracion</td>
+        <td>@item.OID</td>
+        <td>@item.Telefono</td>
+        <td>@item.Correo</td>*@
+                <td>
+                    <button class="btn btn-info btnDetails" data-codigo="@item.IdCartera" data-target="#staticBackdrop"><i class="bi bi-file-earmark-text-fill"></i></button>
+                </td>
+                <td>
+                    <button class="btn btn-success" data-codigo="@item.IdCartera"><i class="bi bi-person-plus-fill"></i></button>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -53,3 +60,43 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="staticBackdrop" data-url="@Url.Action("GetDeatilsModal", "Home")" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="true">
+    @{
+        Html.RenderPartial("~/Views/Home/_PartialDetalleCartera.cshtml", new CarteraVM());
+    }
+</div>
+
+<input type="hidden" id="urlDetailsModal" value="@Url.Action("GetDeatilsModal", "Home")" />
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.btnDetails').on('click', function (e) {
+                e.preventDefault;
+                var codigo = $(this).data('codigo');
+                var url = $('#urlDetailsModal').val();
+                $.ajax({
+                    type: "post",
+                    url: url,
+                    dataType: "json",
+                    data: { id: codigo },
+                    success: function (res) {
+                        $('#staticBackdrop').html(res.partial);
+                        $('#staticBackdrop').modal("show");
+                    }
+                })
+            })
+        })
+
+        $(document).on('click', '.CerrarModal', function (e) {
+            $('#staticBackdrop').modal('hide')
+        })
+
+        $(document).on('click', '.close', function (e) {
+            $('#staticBackdrop').modal('hide')
+        })
+    </script>
+    }

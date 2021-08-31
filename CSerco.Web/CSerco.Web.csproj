@@ -249,6 +249,7 @@
     <Content Include="Views\Account\LogIn.cshtml" />
     <Content Include="Views\Account\NewUser.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
+    <Content Include="Views\Home\_PartialDetalleCartera.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +20,31 @@ namespace CSerco.Web.Controllers
 
             CarteraVM model = _manejoCarteraServices.getLst((int)page);
             return View(model);
+        }
+
+
+        //------------------------------------------------------END POINTS------------------------------------------------------
+
+        public string RenderPartialToString(string ViewName, object model)
+        {
+            ViewData.Model = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, ViewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+
+                return writer.ToString();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetDeatilsModal(int id)
+        {
+            CarteraVM model = _manejoCarteraServices.getCarteraById(id);
+            string partial = RenderPartialToString("~/Views/Home/_PartialDetalleCartera.cshtml", model);
+
+            return Json(new { partial }, JsonRequestBehavior.AllowGet);
         }
     }
 }

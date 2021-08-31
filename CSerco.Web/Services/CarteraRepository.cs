@@ -44,5 +44,27 @@ namespace CSerco.Web.Services
 
             return model;
         }
+
+        public CarteraVM getCarteraById(int id)
+        {
+            Cartera DbModel = db.Cartera.Where(x => x.IdCartera == id).Single();
+            CarteraVM model = new CarteraVM
+            {
+                IdCartera = (int)DbModel.IdCartera,
+                NCredito = DbModel.NCredito,
+                Nombre = DbModel.Nombre,
+                SaldoK = (decimal)DbModel.Saldo,
+                DiasMora = (int)DbModel.DiasMora,
+                MontVen = (decimal)DbModel.MontoVencido,
+                InteresVen = (decimal)DbModel.MontoVencido,
+                Direccion = DbModel.Direccion,
+                Reestructuracion = DbModel.Res == 1 ? "YA POSEE" : "NO POSEE",
+                OID = DbModel.OID == 1 ? "YA POSEE" : "NO POSEE",
+                Telefono = DbModel.Tel,
+                Correo = DbModel.email
+            };
+
+            return model;
+        }
     }
 }
