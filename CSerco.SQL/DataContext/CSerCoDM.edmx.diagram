@@ -4,17 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fb9c249ca99e447c9c1bdad015a03a09" Name="Diagram1" ZoomLevel="26">
-        <EntityTypeShape EntityType="CSercoDBModel.Cartera" Width="1.5" PointX="11.125" PointY="3.375" />
-        <EntityTypeShape EntityType="CSercoDBModel.CheckIn" Width="1.5" PointX="11.125" PointY="12.5" />
-        <EntityTypeShape EntityType="CSercoDBModel.Cliente" Width="1.5" PointX="11.125" PointY="7.25" />
-        <EntityTypeShape EntityType="CSercoDBModel.Departamentos" Width="1.5" PointX="8.875" PointY="9" />
-        <EntityTypeShape EntityType="CSercoDBModel.Gestion" Width="1.5" PointX="13.375" PointY="7.5" />
-        <EntityTypeShape EntityType="CSercoDBModel.Justify" Width="1.5" PointX="13.375" PointY="12.75" />
-        <EntityTypeShape EntityType="CSercoDBModel.Municipios" Width="1.5" PointX="8.875" PointY="11.875" />
-        <EntityTypeShape EntityType="CSercoDBModel.RolesUsuario" Width="1.5" PointX="6.625" PointY="5.5" />
-        <EntityTypeShape EntityType="CSercoDBModel.TipoAcuerdo" Width="1.5" PointX="11.125" PointY="0.5" />
-        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="8.875" PointY="5" />
+      <Diagram DiagramId="fb9c249ca99e447c9c1bdad015a03a09" Name="Diagram1" ZoomLevel="70">
+        <EntityTypeShape EntityType="CSercoDBModel.Cartera" Width="1.5" PointX="5.25" PointY="4.375" />
+        <EntityTypeShape EntityType="CSercoDBModel.CheckIn" Width="1.5" PointX="5.25" PointY="15" />
+        <EntityTypeShape EntityType="CSercoDBModel.Cliente" Width="1.5" PointX="8.25" PointY="6" />
+        <EntityTypeShape EntityType="CSercoDBModel.Departamentos" Width="1.5" PointX="6" PointY="0.75" />
+        <EntityTypeShape EntityType="CSercoDBModel.Gestion" Width="1.5" PointX="10.5" PointY="6" />
+        <EntityTypeShape EntityType="CSercoDBModel.Justify" Width="1.5" PointX="7.5" PointY="15.375" />
+        <EntityTypeShape EntityType="CSercoDBModel.Municipios" Width="1.5" PointX="6" PointY="10.625" />
+        <EntityTypeShape EntityType="CSercoDBModel.RolesUsuario" Width="1.5" PointX="0.75" PointY="7.25" />
+        <EntityTypeShape EntityType="CSercoDBModel.TipoAcuerdo" Width="1.5" PointX="8.25" PointY="3.25" />
+        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="3" PointY="6.75" />
         <AssociationConnector Association="CSercoDBModel.fk_CUser" />
         <AssociationConnector Association="CSercoDBModel.fk_CheckIn" />
         <AssociationConnector Association="CSercoDBModel.fk_CkUser" />
@@ -26,7 +26,9 @@
         <AssociationConnector Association="CSercoDBModel.fk_idDpto" />
         <AssociationConnector Association="CSercoDBModel.fk_GMncpo" />
         <AssociationConnector Association="CSercoDBModel.fk_IdTipo" />
-        <AssociationConnector Association="CSercoDBModel.fk_RolUsuario" />
+        <AssociationConnector Association="CSercoDBModel.fk_idRol" />
+        <EntityTypeShape EntityType="CSercoDBModel.Comentarios" Width="1.5" PointX="12.75" PointY="7.25" />
+        <AssociationConnector Association="CSercoDBModel.fk_idGest" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

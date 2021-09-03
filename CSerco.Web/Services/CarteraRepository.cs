@@ -27,15 +27,7 @@ namespace CSerco.Web.Services
                     IdCartera = (int)item.Id,
                     NCredito = item.NCredito,
                     Nombre = item.Nombre,
-                    SaldoK = (decimal)item.Saldo,
-                    DiasMora = (int)item.DiasMora,
-                    MontVen = (decimal)item.MontoVencido,
-                    InteresVen = (decimal)item.MontoVencido,
-                    Direccion = item.Direccion,
-                    Reestructuracion = item.Res == 1 ? "YA POSEE" : "NO POSEE",
-                    OID = item.OID == 1 ? "YA POSEE" : "NO POSEE",
-                    Telefono = item.Tel,
-                    Correo = item.email
+                    SaldoK = (decimal)item.Saldo
                 });
             }
             model.TotalReg = db.Cartera.Where(x => x.Status == 1 && x.IdUser == IdUser).Count();
@@ -58,7 +50,7 @@ namespace CSerco.Web.Services
                 MontVen = (decimal)DbModel.MontoVencido,
                 InteresVen = (decimal)DbModel.MontoVencido,
                 Direccion = DbModel.Direccion,
-                Reestructuracion = DbModel.Res == 1 ? "YA POSEE" : "NO POSEE",
+                Rees = DbModel.Res == 1 ? "YA POSEE" : "NO POSEE",
                 OID = DbModel.OID == 1 ? "YA POSEE" : "NO POSEE",
                 Telefono = DbModel.Tel,
                 Correo = DbModel.email

@@ -22,12 +22,16 @@ namespace CSerco.SQL.DataContext
         public Nullable<decimal> MontoVencido { get; set; }
         public Nullable<decimal> InteresVencido { get; set; }
         public string Direccion { get; set; }
-        public Nullable<int> IdUser { get; set; }
-        public Nullable<int> Status { get; set; }
+        public Nullable<System.DateTime> FLastPay { get; set; }
+        public Nullable<decimal> Mes10 { get; set; }
+        public Nullable<decimal> Mes11 { get; set; }
+        public Nullable<decimal> Mes12 { get; set; }
         public Nullable<int> Res { get; set; }
         public Nullable<int> OID { get; set; }
         public string Tel { get; set; }
         public string email { get; set; }
+        public Nullable<int> IdUser { get; set; }
+        public Nullable<int> Status { get; set; }
     
         public virtual Usuarios Usuarios { get; set; }
     }

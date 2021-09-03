@@ -37,6 +37,7 @@ namespace CSerco.SQL.DataContext
         public virtual DbSet<RolesUsuario> RolesUsuario { get; set; }
         public virtual DbSet<TipoAcuerdo> TipoAcuerdo { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Comentarios> Comentarios { get; set; }
     
         [DbFunction("CSercoDBEntities1", "fnPager")]
         public virtual IQueryable<fnPager_Result> fnPager(Nullable<int> page, Nullable<int> cantReg, Nullable<int> idUser)

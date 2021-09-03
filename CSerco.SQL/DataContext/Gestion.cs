@@ -14,6 +14,12 @@ namespace CSerco.SQL.DataContext
     
     public partial class Gestion
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Gestion()
+        {
+            this.Comentarios = new HashSet<Comentarios>();
+        }
+    
         public int IdGestion { get; set; }
         public int IdCliente { get; set; }
         public string CodPrestamo { get; set; }
@@ -25,11 +31,15 @@ namespace CSerco.SQL.DataContext
         public Nullable<System.DateTime> FechaGestion { get; set; }
         public string Descripcion { get; set; }
         public Nullable<int> IdTipo { get; set; }
+        public byte[] ImgDoc { get; set; }
+        public Nullable<int> Opened { get; set; }
         public Nullable<int> Status { get; set; }
     
         public virtual Cliente Cliente { get; set; }
         public virtual Departamentos Departamentos { get; set; }
         public virtual Municipios Municipios { get; set; }
         public virtual TipoAcuerdo TipoAcuerdo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Comentarios> Comentarios { get; set; }
     }
 }

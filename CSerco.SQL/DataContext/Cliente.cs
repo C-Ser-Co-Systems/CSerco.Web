@@ -22,7 +22,6 @@ namespace CSerco.SQL.DataContext
     
         public int IdCliente { get; set; }
         public string Nombre { get; set; }
-        public string Apellido { get; set; }
         public string DUI { get; set; }
         public string NIT { get; set; }
         public Nullable<int> IdDpto { get; set; }
@@ -34,6 +33,7 @@ namespace CSerco.SQL.DataContext
         public Nullable<int> IdUser { get; set; }
         public Nullable<int> IdUserRegistra { get; set; }
         public Nullable<System.DateTime> FLastUpdate { get; set; }
+        public Nullable<int> Status { get; set; }
     
         public virtual Departamentos Departamentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

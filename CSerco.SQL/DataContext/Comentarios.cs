@@ -10,12 +10,16 @@
 namespace CSerco.SQL.DataContext
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class fnPager_Result
+    public partial class Comentarios
     {
-        public Nullable<int> Id { get; set; }
-        public string NCredito { get; set; }
-        public string Nombre { get; set; }
-        public Nullable<decimal> Saldo { get; set; }
+        public int idComment { get; set; }
+        public int IdGestion { get; set; }
+        public string Comentario { get; set; }
+        public Nullable<System.DateTime> FechaRegistro { get; set; }
+        public Nullable<int> Status { get; set; }
+    
+        public virtual Gestion Gestion { get; set; }
     }
 }

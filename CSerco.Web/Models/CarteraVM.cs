@@ -15,7 +15,11 @@ namespace CSerco.Web.Models
         public decimal MontVen { get; set; }
         public decimal InteresVen { get; set; }
         public string Direccion { get; set; }
-        public string Reestructuracion { get; set; }
+        public DateTime FLastPay { get; set; }
+        public decimal Mes10 { get; set; }
+        public decimal Mes11 { get; set; }
+        public decimal Mes12 { get; set; }
+        public string Rees { get; set; }
         public string OID { get; set; }
         public string Telefono { get; set; }
         public string Correo { get; set; }

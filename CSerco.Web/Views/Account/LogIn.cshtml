@@ -17,7 +17,7 @@
         <div class="form-horizontal" id="formContent">
             <br />
             <div class="fadeIn first">
-                <img src="~/Content/Img/fullLogo.gif" id="icon" alt="FerroElectronica" />
+                <img src="~/Content/Img/ReCreLogo.jpg" id="icon" alt="FerroElectronica" />
             </div>
             <hr />
             <br />
@@ -27,7 +27,7 @@
                 <label class="control-label col-md-5 fadeIn second">Usuario: </label>
                 <br />
                 <div class="col-md-12">
-                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "fadeIn second", @id = "login", @placeholder = "Usuario" } })<br />
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "fadeIn second", @id = "login", @placeholder = "nombre.example" } })<br />
                     @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger fadeIn third" })
                 </div>
             </div>
