@@ -29,7 +29,7 @@
                     <button class="btn btn-info btnDetails" data-codigo="@item.IdCartera" data-target="#staticBackdrop"><i class="bi bi-file-earmark-text-fill"></i></button>
                 </td>
                 <td>
-                    <button class="btn btn-success" data-codigo="@item.IdCartera"><i class="bi bi-person-plus-fill"></i></button>
+                    <button class="btn btn-success" onclick="@Url.Action("Home", "RegisterClient")?CodP=@item.NCredito"><i class="bi bi-person-plus-fill"></i></button>
                 </td>
             </tr>
             }
@@ -37,7 +37,7 @@
     </table>
 
     <div class="row">
-        <div class="col-sm-4 col-lg-4 col-md-4"></div>
+        <div class="col-sm-4 col-lg-4 col-md-4">Total de Registros : @Model.TotalReg</div>
         <div class="col-sm-4 col-lg-4 col-md-4"></div>
         <div class="col-sm-4 col-lg-4 col-md-4">
             @{Html.RenderPartial("_Pager", Model);}

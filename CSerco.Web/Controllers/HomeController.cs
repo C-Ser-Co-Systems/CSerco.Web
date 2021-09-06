@@ -14,6 +14,7 @@ namespace CSerco.Web.Controllers
     public class HomeController : Controller
     {
         readonly CarteraRepository _manejoCarteraServices = new CarteraRepository();
+        readonly ClienteRepository _manejoClienteServices = new ClienteRepository();
         public ActionResult Index(int? page)
         {
             page = page == null ? 0 : page-1;
@@ -22,8 +23,38 @@ namespace CSerco.Web.Controllers
             return View(model);
         }
 
+        public ActionResult RegisterClient(string CodP)
+        {
+            ViewBag.Departamentos = _manejoClienteServices.getDtpos();
+            if (_manejoClienteServices.ValidationClientExist(CodP))
+            {
+                ClienteVM model = _manejoClienteServices.GetClientByCodP(CodP);
+                RedirectToAction("EditarCliente", "Home", model);
+            }
+            return View();
+        }
+
+        public ActionResult EditarCliente(int id)
+        {
+            ViewBag.Departamentos = _manejoClienteServices.getDtpos();
+            return View();
+        }
+
 
         //------------------------------------------------------END POINTS------------------------------------------------------
+        [HttpGet]
+        public JsonResult Departamentos()
+        {
+            var departamentos = _manejoClienteServices.getDtpos();
+            return Json(departamentos, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult Municipios(int id)
+        {
+            var municipios = _manejoClienteServices.getMncpoByDpto(id);
+            return Json(municipios, JsonRequestBehavior.AllowGet);
+        }
 
         public string RenderPartialToString(string ViewName, object model)
         {

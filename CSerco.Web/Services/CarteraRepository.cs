@@ -19,7 +19,7 @@ namespace CSerco.Web.Services
             {
                 CartLst = new List<CarteraVM>()
             };
-            var Lst = db.fnPager(page, 4, IdUser);
+            var Lst = db.fnPager(page, 6, IdUser);
             foreach(var item in Lst)
             {
                 model.CartLst.Add(new CarteraVM
@@ -31,7 +31,7 @@ namespace CSerco.Web.Services
                 });
             }
             model.TotalReg = db.Cartera.Where(x => x.Status == 1 && x.IdUser == IdUser).Count();
-            model.RegPerPage = 4;
+            model.RegPerPage = 6;
             model.Page = page + 1;
 
             return model;
@@ -47,9 +47,14 @@ namespace CSerco.Web.Services
                 Nombre = DbModel.Nombre,
                 SaldoK = (decimal)DbModel.Saldo,
                 DiasMora = (int)DbModel.DiasMora,
+                //MontVen se refiere al adeudo total
                 MontVen = (decimal)DbModel.MontoVencido,
-                InteresVen = (decimal)DbModel.MontoVencido,
+                InteresVen = (decimal)DbModel.InteresVencido,
                 Direccion = DbModel.Direccion,
+                FLastPay = (DateTime)DbModel.FLastPay,
+                Mes10 = (decimal)DbModel.Mes10,
+                Mes11 = (decimal)DbModel.Mes11,
+                Mes12 = (decimal)DbModel.Mes12,
                 Rees = DbModel.Res == 1 ? "YA POSEE" : "NO POSEE",
                 OID = DbModel.OID == 1 ? "YA POSEE" : "NO POSEE",
                 Telefono = DbModel.Tel,

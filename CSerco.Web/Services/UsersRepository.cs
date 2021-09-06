@@ -26,6 +26,7 @@ namespace CSerco.Web.Services
                     UserName = model.UserName,
                     PasswordHash = Encrypt(model.Password),
                     FechaRegistro = DateTime.Today,
+                    FLastUpdate = DateTime.Today,
                     Status = 1
                 };
                 db.Usuarios.Add(user);

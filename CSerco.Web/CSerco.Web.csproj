@@ -159,11 +159,13 @@
     </Compile>
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CarteraVM.cs" />
+    <Compile Include="Models\ClienteVM.cs" />
     <Compile Include="Models\SessionData.cs" />
     <Compile Include="Models\SignInVM.cs" />
     <Compile Include="Models\UserVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\CarteraRepository.cs" />
+    <Compile Include="Services\ClienteRepository.cs" />
     <Compile Include="Services\ManageRepository.cs" />
     <Compile Include="Services\UsersRepository.cs" />
   </ItemGroup>
