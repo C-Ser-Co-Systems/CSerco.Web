@@ -29,6 +29,8 @@
         <AssociationConnector Association="CSercoDBModel.fk_idRol" />
         <EntityTypeShape EntityType="CSercoDBModel.Comentarios" Width="1.5" PointX="12.75" PointY="7.25" />
         <AssociationConnector Association="CSercoDBModel.fk_idGest" />
+        <EntityTypeShape EntityType="CSercoDBModel.ClientFlag" Width="1.5" PointX="10.5" PointY="11.5" />
+        <AssociationConnector Association="CSercoDBModel.fk_IdFlagCliente" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

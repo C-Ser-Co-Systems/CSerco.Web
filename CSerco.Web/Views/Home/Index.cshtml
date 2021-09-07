@@ -29,7 +29,7 @@
                     <button class="btn btn-info btnDetails" data-codigo="@item.IdCartera" data-target="#staticBackdrop"><i class="bi bi-file-earmark-text-fill"></i></button>
                 </td>
                 <td>
-                    <button class="btn btn-success" onclick="@Url.Action("Home", "RegisterClient")?CodP=@item.NCredito"><i class="bi bi-person-plus-fill"></i></button>
+                    <a class="btn btn-success" href="@Url.Action("RegisterClient", "Home")?CodP=@item.NCredito"><i class="bi bi-person-plus-fill"></i></a>
                 </td>
             </tr>
             }

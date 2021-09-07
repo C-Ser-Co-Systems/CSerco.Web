@@ -57,6 +57,14 @@
           <Property Name="FLastUpdate" Type="date" />
           <Property Name="Status" Type="int" />
         </EntityType>
+        <EntityType Name="ClientFlag">
+          <Key>
+            <PropertyRef Name="idFlag" />
+          </Key>
+          <Property Name="idFlag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Comentarios">
           <Key>
             <PropertyRef Name="idComment" />
@@ -236,6 +244,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_IdFlagCliente">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="ClientFlag" Type="Self.ClientFlag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClientFlag">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_idGest">
           <End Role="Gestion" Type="Self.Gestion" Multiplicity="1" />
           <End Role="Comentarios" Type="Self.Comentarios" Multiplicity="*" />
@@ -315,6 +335,7 @@
           <EntitySet Name="Cartera" EntityType="Self.Cartera" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckIn" EntityType="Self.CheckIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientFlag" EntityType="Self.ClientFlag" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comentarios" EntityType="Self.Comentarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gestion" EntityType="Self.Gestion" Schema="dbo" store:Type="Tables" />
@@ -354,6 +375,10 @@
           <AssociationSet Name="fk_idDpto" Association="Self.fk_idDpto">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Municipios" EntitySet="Municipios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdFlagCliente" Association="Self.fk_IdFlagCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="ClientFlag" EntitySet="ClientFlag" />
           </AssociationSet>
           <AssociationSet Name="fk_idGest" Association="Self.fk_idGest">
             <End Role="Gestion" EntitySet="Gestion" />
@@ -449,6 +474,11 @@
             <End Role="Gestion" EntitySet="Gestion" />
             <End Role="Comentarios" EntitySet="Comentarios" />
           </AssociationSet>
+          <EntitySet Name="ClientFlag" EntityType="CSercoDBModel.ClientFlag" />
+          <AssociationSet Name="fk_IdFlagCliente" Association="CSercoDBModel.fk_IdFlagCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="ClientFlag" EntitySet="ClientFlag" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Cartera">
           <Key>
@@ -508,6 +538,7 @@
           <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_GCliente" FromRole="Cliente" ToRole="Gestion" />
           <NavigationProperty Name="Municipios" Relationship="CSercoDBModel.fk_Mncpo" FromRole="Cliente" ToRole="Municipios" />
           <NavigationProperty Name="Usuarios" Relationship="CSercoDBModel.fk_User" FromRole="Cliente" ToRole="Usuarios" />
+          <NavigationProperty Name="ClientFlag" Relationship="CSercoDBModel.fk_IdFlagCliente" FromRole="Cliente" ToRole="ClientFlag" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -773,6 +804,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClientFlag">
+          <Key>
+            <PropertyRef Name="idFlag" />
+          </Key>
+          <Property Name="idFlag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_IdFlagCliente" FromRole="ClientFlag" ToRole="Cliente" />
+        </EntityType>
+        <Association Name="fk_IdFlagCliente">
+          <End Type="CSercoDBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="CSercoDBModel.ClientFlag" Role="ClientFlag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="ClientFlag">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -932,6 +984,15 @@
                 <ScalarProperty Name="Comentario" ColumnName="Comentario" />
                 <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
                 <ScalarProperty Name="idComment" ColumnName="idComment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientFlag">
+            <EntityTypeMapping TypeName="CSercoDBModel.ClientFlag">
+              <MappingFragment StoreEntitySet="ClientFlag">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="idFlag" ColumnName="idFlag" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

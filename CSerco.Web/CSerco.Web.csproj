@@ -264,6 +264,7 @@
     <Content Include="Views\Account\NewUser.cshtml" />
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Home\_PartialDetalleCartera.cshtml" />
+    <Content Include="Views\Home\RegisterClient.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

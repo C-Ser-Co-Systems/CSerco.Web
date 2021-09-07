@@ -38,6 +38,12 @@ namespace CSerco.Web.Services
                 };
                 db.Cliente.Add(DbModel);
                 db.SaveChanges();
+                //Hacemos la detección del ultimo id insertado en la base para el cliente nuevo
+                //Se procede a levantar la flag del cliente, que es indicador de cliente no gestionado (pero si registrado)
+                var idC = DbModel.IdCliente;
+                ClientFlag Flag = new ClientFlag { IdCliente = idC, Status = 1 };
+                db.ClientFlag.Add(Flag);
+                db.SaveChanges();
                 //Eliminamos el registro de la cartera, a partir de este punto
                 //Toda gestion adicional debera ser ingresada a partir del cliente
                 var Cartera = db.Cartera.Where(x => x.IdCartera == model.IdCartera).Single();
@@ -85,6 +91,19 @@ namespace CSerco.Web.Services
             }
 
             return List;
+        }
+
+        public ClienteVM fromCarteraToClient(string NCredito)
+        {
+            var DbClient = db.Cartera.Where(x => x.NCredito == NCredito && x.Status == 1).Single();
+            ClienteVM model = new ClienteVM
+            {
+                IdCartera = DbClient.IdCartera,
+                Nombre = DbClient.Nombre,
+                Direcc = DbClient.Direccion
+            };
+
+            return model;
         }
 
         public ClienteVM GetClientByCodP(string CodP)

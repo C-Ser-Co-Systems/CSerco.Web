@@ -14,7 +14,7 @@ namespace CSerco.Web.Models
         [Required(ErrorMessage ="¡El nombre completo es requerido!")]
         public string Nombre { get; set; }
         [Required(ErrorMessage ="¡El DUI es requerido!")]
-        [RegularExpression(@"^\d{8}-\d{1}$", ErrorMessage = "¡El DUI ingresado no es válido!")]
+        [RegularExpression(@"^\d{8}(| |-){1}\d{1}$", ErrorMessage = "¡El DUI ingresado no es válido!")]
         public string DUI { get; set; }
         public string NIT { get; set; }
         [Required(ErrorMessage = "¡Por favor seleccione un Departamento!")]
@@ -25,9 +25,9 @@ namespace CSerco.Web.Models
         public string Direcc { get; set; }
         public string LTrabajo { get; set; }
         [Required(ErrorMessage = "¡Debe registrar al menos 1 telefono para el cliente!")]
-        [RegularExpression(@"(\+503|00503|503)?[ -]*(6|7)([0-9][ -]*){7}", ErrorMessage = "¡El número ingresado no es válido!")]
+        [RegularExpression(@"(\+503|00503|503)?(| |-){1}(2|6|7)([0-9]){3}(| |-){1}([0-9]){4}", ErrorMessage = "¡El número ingresado no es válido!")]
         public string Tel { get; set; }
-        [RegularExpression(@"(\+503|00503|503)?[ -]*(6|7)([0-9][ -]*){7}", ErrorMessage = "¡El número ingresado no es válido!")]
+        [RegularExpression(@"(\+503|00503|503)?(| |-){1}(2|6|7)([0-9]){3}(| |-){1}([0-9]){4}", ErrorMessage = "¡El número ingresado no es válido!")]
         public string Tel2 { get; set; }
         public int IdUserT { get; set; }
         public int IdUserReg { get; set; }

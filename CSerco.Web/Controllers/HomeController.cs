@@ -31,6 +31,21 @@ namespace CSerco.Web.Controllers
                 ClienteVM model = _manejoClienteServices.GetClientByCodP(CodP);
                 RedirectToAction("EditarCliente", "Home", model);
             }
+            else
+            {
+                ClienteVM model = _manejoClienteServices.fromCarteraToClient(CodP);
+                return View(model);
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult RegisterClient(ClienteVM model)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
             return View();
         }
 
@@ -39,7 +54,6 @@ namespace CSerco.Web.Controllers
             ViewBag.Departamentos = _manejoClienteServices.getDtpos();
             return View();
         }
-
 
         //------------------------------------------------------END POINTS------------------------------------------------------
         [HttpGet]

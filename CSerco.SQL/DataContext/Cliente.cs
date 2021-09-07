@@ -18,6 +18,7 @@ namespace CSerco.SQL.DataContext
         public Cliente()
         {
             this.Gestion = new HashSet<Gestion>();
+            this.ClientFlag = new HashSet<ClientFlag>();
         }
     
         public int IdCliente { get; set; }
@@ -40,5 +41,7 @@ namespace CSerco.SQL.DataContext
         public virtual ICollection<Gestion> Gestion { get; set; }
         public virtual Municipios Municipios { get; set; }
         public virtual Usuarios Usuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientFlag> ClientFlag { get; set; }
     }
 }

@@ -1,0 +1,142 @@
+﻿@model CSerco.Web.Models.ClienteVM
+
+@{
+    ViewBag.Title = "RegisterClient";
+    Layout = "~/Views/Shared/_SysLayout.cshtml";
+}
+
+<center><h2>Registro de Clientes.</h2></center>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal form-bordered-p">
+        <br />
+        <h4>Datos Personales del Cliente.</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(x => x.IdCartera)
+
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            <div class="col-sm-8 col-md-8 col-lg-8">
+                <div class="form-group">
+                    <label>Nombre Completo: </label>
+                    @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label>Numero de DUI: </label>
+                @Html.EditorFor(model => model.DUI, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DUI, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label>Numero de NIT: </label>
+                @Html.EditorFor(model => model.NIT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.NIT, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label>Departamento de Residencia: </label>
+                @Html.DropDownListFor(model => model.idDpto, new List<SelectListItem>(ViewBag.Departamentos), "Seleccione Departamento", htmlAttributes: new { @class = "form-control", @id = "Dpto" })
+                @Html.ValidationMessageFor(model => model.idDpto, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <label>Municipio de Residencia: </label>
+                @Html.DropDownListFor(model => model.idMncpo, Enumerable.Empty<SelectListItem>(), "Seleccione Municipio", htmlAttributes: new { @class = "form-control", @id = "Mncpo", @disabled = "disabled" })
+                @Html.ValidationMessageFor(model => model.idMncpo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <label>Dirección Completa: </label>
+                @Html.EditorFor(model => model.Direcc, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Direcc, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+                <label>Lugar de Trabajo: </label>
+                @Html.EditorFor(model => model.LTrabajo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LTrabajo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Teléfono: </label>
+                @Html.EditorFor(model => model.Tel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tel, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <label>Teléfono Adicional: </label>
+                @Html.EditorFor(model => model.Tel2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Tel2, "", new { @class = "text-danger" })
+            </div>
+            <div class="col-sm-2 col-md-2 col-lg-2"></div>
+        </div>
+        <br />
+        <dic class="row">
+            <div class="col-sm-5 col-md-5 col-lg-5"></div>
+            <div class="col-sm-1 col-md-1 col-lg-1">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Guardar" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1 col-md-1 col-lg-1">
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="button" value="Cancelar" class="btn btn-danger" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-5 col-lg-5"></div>
+        </dic>
+        <br />
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.DUI, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.DUI, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.DUI, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts{
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            @*$.get("@Url.Action("Departamentos", "Home")", function (departamentos) { })*@
+
+            $("#Dpto").change(function () {
+                var text = $(this).children("option:selected").text();
+                var idDept = $(this).children("option:selected").val();
+                if (text == "Seleccione Departamento") {
+                    $("#Mncpo").html("");
+                    $("#Mncpo").attr("disabled", true);
+                    $("#Mncpo").append('<option value="">Seleccione Municipio</option>');
+                } else {
+                    $.get("@Url.Action("Municipios", "Home")?id=" + idDept, function (municipios) {
+                        $("#Mncpo").html("");
+                        $("#Mncpo").append('<option value="">Seleccione Municipio</option>');
+                        $("#Mncpo").attr("disabled", false);
+                        $.each(municipios, function (index, item) {
+                            $("#Mncpo").append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                        })
+                    })
+                }
+            })
+        })
+</script>
+}

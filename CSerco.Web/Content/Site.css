@@ -9,7 +9,14 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
+}
+
+.form-bordered-p {
+    padding: 3px 10px;
+    border: PowderBlue 5px double;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 body {
