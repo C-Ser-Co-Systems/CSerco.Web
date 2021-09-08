@@ -21,17 +21,17 @@
         <tbody>
             @foreach (var item in Model.CartLst)
             {
-            <tr id="tr_@item.IdCartera">
-                <td>@item.NCredito</td>
-                <td>@item.Nombre</td>
-                <td>$@item.SaldoK</td>
-                <td>
-                    <button class="btn btn-info btnDetails" data-codigo="@item.IdCartera" data-target="#staticBackdrop"><i class="bi bi-file-earmark-text-fill"></i></button>
-                </td>
-                <td>
+                <tr id="tr_@item.IdCartera">
+                    <td>@item.NCredito</td>
+                    <td>@item.Nombre</td>
+                    <td>$@item.SaldoK</td>
+                    <td>
+                        <button class="btn btn-info btnDetails" data-codigo="@item.IdCartera" data-target="#staticBackdrop"><i class="bi bi-file-earmark-text-fill"></i></button>
+                    </td>
+                    <td>
                     <a class="btn btn-success" href="@Url.Action("RegisterClient", "Home")?CodP=@item.NCredito"><i class="bi bi-person-plus-fill"></i></a>
-                </td>
-            </tr>
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
@@ -56,7 +56,26 @@
 
 @section Scripts{
     <script type="text/javascript">
+
         $(document).ready(function () {
+
+            var message = "@ViewBag.Message"
+            var id = "@ViewBag.Gestion"
+            if (message == "ALERT") {
+                Swal.fire({
+                    title: "Oops!",
+                    text: "Parece que tienes clientes sin gestion, por favor verifica que cada uno de los clientes registrados tengan gestiones activas, si se ha ingresado una cliente por error, debera dar de baja al cliente ingresando una gestion y marcando dicha gestion como DESASIGNACIÓN",
+                    icon: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#008648",
+                    confirmButtonText: "Aceptar!",
+                    closeOnConfirm: true,
+                }).then(result => {
+                    if (result.value) {
+                        window.location.assign("/Home/RegistrarGestion?idClient=" + id)
+                    }
+                })
+            }
 
             $('.btnDetails').on('click', function (e) {
                 e.preventDefault;

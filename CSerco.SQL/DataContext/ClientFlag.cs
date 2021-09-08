@@ -16,8 +16,11 @@ namespace CSerco.SQL.DataContext
     {
         public int idFlag { get; set; }
         public int IdCliente { get; set; }
+        public int IdUser { get; set; }
+        public string CodP { get; set; }
         public int Status { get; set; }
     
         public virtual Cliente Cliente { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

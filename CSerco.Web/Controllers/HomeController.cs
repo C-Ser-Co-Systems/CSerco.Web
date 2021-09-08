@@ -18,8 +18,9 @@ namespace CSerco.Web.Controllers
         public ActionResult Index(int? page)
         {
             page = page == null ? 0 : page-1;
-
             CarteraVM model = _manejoCarteraServices.getLst((int)page);
+            ViewBag.Message = _manejoClienteServices.verifyClientsFlags() ? "ALERT" : "";
+            ViewBag.Gestion = _manejoClienteServices.getUnmanageClientId();
             return View(model);
         }
 
@@ -44,7 +45,6 @@ namespace CSerco.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
             }
             return View();
         }
@@ -52,6 +52,11 @@ namespace CSerco.Web.Controllers
         public ActionResult EditarCliente(int id)
         {
             ViewBag.Departamentos = _manejoClienteServices.getDtpos();
+            return View();
+        }
+
+        public ActionResult RegistrarGestion(int idClient)
+        {
             return View();
         }
 

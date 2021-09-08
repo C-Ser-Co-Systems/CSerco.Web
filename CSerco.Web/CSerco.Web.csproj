@@ -160,6 +160,7 @@
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CarteraVM.cs" />
     <Compile Include="Models\ClienteVM.cs" />
+    <Compile Include="Models\GestionVM.cs" />
     <Compile Include="Models\SessionData.cs" />
     <Compile Include="Models\SignInVM.cs" />
     <Compile Include="Models\UserVM.cs" />

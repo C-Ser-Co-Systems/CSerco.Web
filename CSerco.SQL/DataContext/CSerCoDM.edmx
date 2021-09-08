@@ -63,6 +63,8 @@
           </Key>
           <Property Name="idFlag" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="CodP" Type="varchar" MaxLength="15" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Comentarios">
@@ -316,6 +318,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_UserClient">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="ClientFlag" Type="Self.ClientFlag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="ClientFlag">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="fnPager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
           <Parameter Name="cantReg" Type="int" Mode="In" />
@@ -400,6 +414,10 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
+          <AssociationSet Name="fk_UserClient" Association="Self.fk_UserClient">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ClientFlag" EntitySet="ClientFlag" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -479,7 +497,11 @@
             <End Role="Cliente" EntitySet="Cliente" />
             <End Role="ClientFlag" EntitySet="ClientFlag" />
           </AssociationSet>
-        </EntityContainer>
+          <AssociationSet Name="fk_UserClient" Association="CSercoDBModel.fk_UserClient">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="ClientFlag" EntitySet="ClientFlag" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="Cartera">
           <Key>
             <PropertyRef Name="IdCartera" />
@@ -630,6 +652,7 @@
           <NavigationProperty Name="CheckIn" Relationship="CSercoDBModel.fk_CkUser" FromRole="Usuarios" ToRole="CheckIn" />
           <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_User" FromRole="Usuarios" ToRole="Cliente" />
           <NavigationProperty Name="RolesUsuario" Relationship="CSercoDBModel.fk_idRol" FromRole="Usuarios" ToRole="RolesUsuario" />
+          <NavigationProperty Name="ClientFlag" Relationship="CSercoDBModel.fk_UserClient" FromRole="Usuarios" ToRole="ClientFlag" />
         </EntityType>
         <Association Name="fk_CUser">
           <End Type="CSercoDBModel.Usuarios" Role="Usuarios" Multiplicity="0..1" />
@@ -810,8 +833,11 @@
           </Key>
           <Property Name="idFlag" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <Property Name="CodP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="Status" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_IdFlagCliente" FromRole="ClientFlag" ToRole="Cliente" />
+          <NavigationProperty Name="Usuarios" Relationship="CSercoDBModel.fk_UserClient" FromRole="ClientFlag" ToRole="Usuarios" />
         </EntityType>
         <Association Name="fk_IdFlagCliente">
           <End Type="CSercoDBModel.Cliente" Role="Cliente" Multiplicity="1" />
@@ -825,7 +851,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="fk_UserClient">
+          <End Type="CSercoDBModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="CSercoDBModel.ClientFlag" Role="ClientFlag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IdUser" />
+            </Principal>
+            <Dependent Role="ClientFlag">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -991,6 +1029,8 @@
             <EntityTypeMapping TypeName="CSercoDBModel.ClientFlag">
               <MappingFragment StoreEntitySet="ClientFlag">
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CodP" ColumnName="CodP" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
                 <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
                 <ScalarProperty Name="idFlag" ColumnName="idFlag" />
               </MappingFragment>

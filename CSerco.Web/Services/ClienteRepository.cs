@@ -20,6 +20,7 @@ namespace CSerco.Web.Services
         {
             try
             {
+                var Cartera = db.Cartera.Where(x => x.IdCartera == model.IdCartera).Single();
                 Cliente DbModel = new Cliente
                 {
                     Nombre = model.Nombre,
@@ -41,12 +42,11 @@ namespace CSerco.Web.Services
                 //Hacemos la detección del ultimo id insertado en la base para el cliente nuevo
                 //Se procede a levantar la flag del cliente, que es indicador de cliente no gestionado (pero si registrado)
                 var idC = DbModel.IdCliente;
-                ClientFlag Flag = new ClientFlag { IdCliente = idC, Status = 1 };
+                ClientFlag Flag = new ClientFlag { IdCliente = idC, Status = 1, IdUser = Convert.ToInt32(session.getSession("User")), CodP = Cartera.NCredito };
                 db.ClientFlag.Add(Flag);
                 db.SaveChanges();
                 //Eliminamos el registro de la cartera, a partir de este punto
                 //Toda gestion adicional debera ser ingresada a partir del cliente
-                var Cartera = db.Cartera.Where(x => x.IdCartera == model.IdCartera).Single();
                 Cartera.Status = 0;
                 db.Entry(Cartera).State = EntityState.Modified;
                 db.SaveChanges();
@@ -56,6 +56,28 @@ namespace CSerco.Web.Services
                 Debug.WriteLine("Exception Message: " + e.Message);
                 return false;
             }
+        }
+
+        public int getUnmanageClientId()
+        {
+            var id = Convert.ToInt32(session.getSession("User"));
+            int c = db.ClientFlag.Where(x => x.IdUser == id && x.Status == 1).Count();
+            if(c > 0)
+            {
+                var client = db.ClientFlag.Where(x => x.IdUser == id && x.Status == 1).Single();
+                return client.IdCliente;
+            }
+
+            return 0;
+        }
+
+        public bool verifyClientsFlags()
+        {
+            int idUserGest = Convert.ToInt32(session.getSession("User"));
+            int validation = db.ClientFlag.Where(x => x.IdUser == idUserGest && x.Status == 1).Count();
+            if (validation > 0)
+                return true;
+            return false;
         }
 
         public List<SelectListItem> getDtpos()
