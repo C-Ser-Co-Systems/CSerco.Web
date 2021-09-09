@@ -17,8 +17,8 @@ namespace CSerco.SQL.DataContext
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.Gestion = new HashSet<Gestion>();
             this.ClientFlag = new HashSet<ClientFlag>();
+            this.Gestion = new HashSet<Gestion>();
         }
     
         public int IdCliente { get; set; }
@@ -37,11 +37,11 @@ namespace CSerco.SQL.DataContext
         public Nullable<int> Status { get; set; }
     
         public virtual Departamentos Departamentos { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gestion> Gestion { get; set; }
         public virtual Municipios Municipios { get; set; }
         public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ClientFlag> ClientFlag { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gestion> Gestion { get; set; }
     }
 }

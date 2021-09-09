@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CSerco.Web.Models
 {
-    public class ClienteVM
+    public class ClienteVM : BaseModel
     {
         public int IdCartera { get; set; }
         public int IdCliente { get; set; }

@@ -151,6 +151,14 @@ namespace CSerco.Web.Services
             return model;
         }
 
+        public int getLastClientID()
+        {
+            int iduser = Convert.ToInt32(session.getSession("User"));
+            var client = db.Cliente.Where(x => x.Status == 1 && x.IdUser == iduser).LastOrDefault();
+            int id = client.IdCliente;
+            return id;
+        }
+
         public bool ValidationClientExist(string codP)
         {
             //Devuelve true si hay una gestion existente para cliente (es decir que el cliente existe), false si no existe!

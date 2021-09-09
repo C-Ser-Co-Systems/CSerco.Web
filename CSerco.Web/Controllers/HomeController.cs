@@ -15,17 +15,40 @@ namespace CSerco.Web.Controllers
     {
         readonly CarteraRepository _manejoCarteraServices = new CarteraRepository();
         readonly ClienteRepository _manejoClienteServices = new ClienteRepository();
+        readonly GestionRepository _manejoGestionServices = new GestionRepository();
         public ActionResult Index(int? page)
         {
-            page = page == null ? 0 : page-1;
+            if (_manejoClienteServices.verifyClientsFlags())
+            {
+                ViewBag.Message = "ALERT";
+                ViewBag.Gestion = _manejoClienteServices.getUnmanageClientId();
+            }
+            page = page == null ? 0 : page - 1;
             CarteraVM model = _manejoCarteraServices.getLst((int)page);
-            ViewBag.Message = _manejoClienteServices.verifyClientsFlags() ? "ALERT" : "";
-            ViewBag.Gestion = _manejoClienteServices.getUnmanageClientId();
+
             return View(model);
+        }
+
+        public ActionResult GestionList(int? page)
+        {
+            if (_manejoClienteServices.verifyClientsFlags())
+            {
+                ViewBag.Message = "ALERT";
+                ViewBag.Gestion = _manejoClienteServices.getUnmanageClientId();
+            }
+            page = page == null ? 0 : page - 1;
+            GestionVM model = _manejoGestionServices.getGestionLst((int)page);
+
+            return View();
         }
 
         public ActionResult RegisterClient(string CodP)
         {
+            if (_manejoClienteServices.verifyClientsFlags())
+            {
+                ViewBag.Message = "ALERT";
+                ViewBag.Gestion = _manejoClienteServices.getUnmanageClientId();
+            }
             ViewBag.Departamentos = _manejoClienteServices.getDtpos();
             if (_manejoClienteServices.ValidationClientExist(CodP))
             {
@@ -45,6 +68,11 @@ namespace CSerco.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (_manejoClienteServices.NewClient(model))
+                {
+                    model.IdCliente = _manejoClienteServices.getUnmanageClientId();
+                    RedirectToAction("RegistrarGestion", "Home", model.IdCliente);
+                }
             }
             return View();
         }
@@ -52,12 +80,19 @@ namespace CSerco.Web.Controllers
         public ActionResult EditarCliente(int id)
         {
             ViewBag.Departamentos = _manejoClienteServices.getDtpos();
+            if (_manejoClienteServices.verifyClientsFlags())
+            {
+                ViewBag.Message = "ALERT";
+                ViewBag.Gestion = _manejoClienteServices.getLastClientID();
+            }
             return View();
         }
 
         public ActionResult RegistrarGestion(int idClient)
         {
-            return View();
+            GestionVM model = _manejoGestionServices.getClientDataFromGestion(idClient);
+            ViewBag.TipoGestion = _manejoGestionServices.getTipoList();
+            return View(model);
         }
 
         //------------------------------------------------------END POINTS------------------------------------------------------
@@ -93,6 +128,7 @@ namespace CSerco.Web.Controllers
         {
             CarteraVM model = _manejoCarteraServices.getCarteraById(id);
             string partial = RenderPartialToString("~/Views/Home/_PartialDetalleCartera.cshtml", model);
+
 
             return Json(new { partial }, JsonRequestBehavior.AllowGet);
         }

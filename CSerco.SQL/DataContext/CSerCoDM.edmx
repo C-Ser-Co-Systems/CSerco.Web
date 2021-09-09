@@ -92,16 +92,9 @@
           <Property Name="IdGestion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdCliente" Type="int" Nullable="false" />
           <Property Name="CodPrestamo" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="NameDeudor" Type="varchar" MaxLength="75" Nullable="false" />
-          <Property Name="IdDpto" Type="int" />
-          <Property Name="IdMncpo" Type="int" />
-          <Property Name="Urbanizacion" Type="varchar" MaxLength="75" />
-          <Property Name="Direccion" Type="varchar" MaxLength="150" />
           <Property Name="FechaGestion" Type="date" />
-          <Property Name="Descripcion" Type="varchar(max)" />
           <Property Name="IdTipo" Type="int" />
           <Property Name="ImgDoc" Type="varbinary(max)" />
-          <Property Name="Opened" Type="int" />
           <Property Name="Status" Type="int" />
         </EntityType>
         <EntityType Name="Justify">
@@ -207,30 +200,6 @@
             </Principal>
             <Dependent Role="Gestion">
               <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_GDpto">
-          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="0..1" />
-          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Departamentos">
-              <PropertyRef Name="IdDpto" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdDpto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_GMncpo">
-          <End Role="Municipios" Type="Self.Municipios" Multiplicity="0..1" />
-          <End Role="Gestion" Type="Self.Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Municipios">
-              <PropertyRef Name="IdMncpo" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdMncpo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,6 +314,25 @@
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="fnPagerGestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="cantReg" Type="int" Mode="In" />
+          <Parameter Name="IdUser" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdGestion" Type="int" />
+                <Property Name="IdCliente" Type="int" />
+                <Property Name="IdUser" Type="int" />
+                <Property Name="CodPrestamo" Type="varchar" MaxLength="15" />
+                <Property Name="FechaGestion" Type="date" />
+                <Property Name="IdTipo" Type="int" />
+                <Property Name="ImgDoc" Type="varbinary(max)" />
+                <Property Name="Status" Type="int" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <EntityContainer Name="CSercoDBModelStoreContainer">
           <EntitySet Name="Cartera" EntityType="Self.Cartera" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckIn" EntityType="Self.CheckIn" Schema="dbo" store:Type="Tables" />
@@ -376,14 +364,6 @@
           </AssociationSet>
           <AssociationSet Name="fk_GCliente" Association="Self.fk_GCliente">
             <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Gestion" EntitySet="Gestion" />
-          </AssociationSet>
-          <AssociationSet Name="fk_GDpto" Association="Self.fk_GDpto">
-            <End Role="Departamentos" EntitySet="Departamentos" />
-            <End Role="Gestion" EntitySet="Gestion" />
-          </AssociationSet>
-          <AssociationSet Name="fk_GMncpo" Association="Self.fk_GMncpo">
-            <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Gestion" EntitySet="Gestion" />
           </AssociationSet>
           <AssociationSet Name="fk_idDpto" Association="Self.fk_idDpto">
@@ -428,7 +408,6 @@
           <EntitySet Name="CheckIn" EntityType="CSercoDBModel.CheckIn" />
           <EntitySet Name="Cliente" EntityType="CSercoDBModel.Cliente" />
           <EntitySet Name="Departamentos" EntityType="CSercoDBModel.Departamentos" />
-          <EntitySet Name="Gestion" EntityType="CSercoDBModel.Gestion" />
           <EntitySet Name="Justify" EntityType="CSercoDBModel.Justify" />
           <EntitySet Name="Municipios" EntityType="CSercoDBModel.Municipios" />
           <EntitySet Name="RolesUsuario" EntityType="CSercoDBModel.RolesUsuario" />
@@ -450,10 +429,6 @@
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="fk_GCliente" Association="CSercoDBModel.fk_GCliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="Gestion" EntitySet="Gestion" />
-          </AssociationSet>
           <AssociationSet Name="fk_Mncpo" Association="CSercoDBModel.fk_Mncpo">
             <End Role="Municipios" EntitySet="Municipios" />
             <End Role="Cliente" EntitySet="Cliente" />
@@ -462,21 +437,9 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Cliente" EntitySet="Cliente" />
           </AssociationSet>
-          <AssociationSet Name="fk_GDpto" Association="CSercoDBModel.fk_GDpto">
-            <End Role="Departamentos" EntitySet="Departamentos" />
-            <End Role="Gestion" EntitySet="Gestion" />
-          </AssociationSet>
           <AssociationSet Name="fk_idDpto" Association="CSercoDBModel.fk_idDpto">
             <End Role="Departamentos" EntitySet="Departamentos" />
             <End Role="Municipios" EntitySet="Municipios" />
-          </AssociationSet>
-          <AssociationSet Name="fk_GMncpo" Association="CSercoDBModel.fk_GMncpo">
-            <End Role="Municipios" EntitySet="Municipios" />
-            <End Role="Gestion" EntitySet="Gestion" />
-          </AssociationSet>
-          <AssociationSet Name="fk_IdTipo" Association="CSercoDBModel.fk_IdTipo">
-            <End Role="TipoAcuerdo" EntitySet="TipoAcuerdo" />
-            <End Role="Gestion" EntitySet="Gestion" />
           </AssociationSet>
           <AssociationSet Name="fk_idRol" Association="CSercoDBModel.fk_idRol">
             <End Role="RolesUsuario" EntitySet="RolesUsuario" />
@@ -488,10 +451,6 @@
             <Parameter Name="IdUser" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="Comentarios" EntityType="CSercoDBModel.Comentarios" />
-          <AssociationSet Name="fk_idGest" Association="CSercoDBModel.fk_idGest">
-            <End Role="Gestion" EntitySet="Gestion" />
-            <End Role="Comentarios" EntitySet="Comentarios" />
-          </AssociationSet>
           <EntitySet Name="ClientFlag" EntityType="CSercoDBModel.ClientFlag" />
           <AssociationSet Name="fk_IdFlagCliente" Association="CSercoDBModel.fk_IdFlagCliente">
             <End Role="Cliente" EntitySet="Cliente" />
@@ -501,6 +460,24 @@
             <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="ClientFlag" EntitySet="ClientFlag" />
           </AssociationSet>
+          <EntitySet Name="Gestion" EntityType="CSercoDBModel.Gestion" />
+          <AssociationSet Name="fk_GCliente" Association="CSercoDBModel.fk_GCliente">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Gestion" EntitySet="Gestion" />
+          </AssociationSet>
+          <AssociationSet Name="fk_idGest" Association="CSercoDBModel.fk_idGest">
+            <End Role="Gestion" EntitySet="Gestion" />
+            <End Role="Comentarios" EntitySet="Comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_IdTipo" Association="CSercoDBModel.fk_IdTipo">
+            <End Role="TipoAcuerdo" EntitySet="TipoAcuerdo" />
+            <End Role="Gestion" EntitySet="Gestion" />
+          </AssociationSet>
+          <FunctionImport Name="fnPagerGestion" IsComposable="true" ReturnType="Collection(CSercoDBModel.fnPagerGestion_Result)">
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="cantReg" Mode="In" Type="Int32" />
+            <Parameter Name="IdUser" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Cartera">
           <Key>
@@ -557,10 +534,10 @@
           <Property Name="FLastUpdate" Type="DateTime" Precision="0" />
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="Departamentos" Relationship="CSercoDBModel.fk_Dpto" FromRole="Cliente" ToRole="Departamentos" />
-          <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_GCliente" FromRole="Cliente" ToRole="Gestion" />
           <NavigationProperty Name="Municipios" Relationship="CSercoDBModel.fk_Mncpo" FromRole="Cliente" ToRole="Municipios" />
           <NavigationProperty Name="Usuarios" Relationship="CSercoDBModel.fk_User" FromRole="Cliente" ToRole="Usuarios" />
           <NavigationProperty Name="ClientFlag" Relationship="CSercoDBModel.fk_IdFlagCliente" FromRole="Cliente" ToRole="ClientFlag" />
+          <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_GCliente" FromRole="Cliente" ToRole="Gestion" />
         </EntityType>
         <EntityType Name="Departamentos">
           <Key>
@@ -570,32 +547,7 @@
           <Property Name="DptoName" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ISOCode" Type="String" Nullable="false" MaxLength="5" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_Dpto" FromRole="Departamentos" ToRole="Cliente" />
-          <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_GDpto" FromRole="Departamentos" ToRole="Gestion" />
           <NavigationProperty Name="Municipios" Relationship="CSercoDBModel.fk_idDpto" FromRole="Departamentos" ToRole="Municipios" />
-        </EntityType>
-        <EntityType Name="Gestion">
-          <Key>
-            <PropertyRef Name="IdGestion" />
-          </Key>
-          <Property Name="IdGestion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdCliente" Type="Int32" Nullable="false" />
-          <Property Name="CodPrestamo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="NameDeudor" Type="String" Nullable="false" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="IdDpto" Type="Int32" />
-          <Property Name="IdMncpo" Type="Int32" />
-          <Property Name="Urbanizacion" Type="String" MaxLength="75" FixedLength="false" Unicode="false" />
-          <Property Name="Direccion" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="FechaGestion" Type="DateTime" Precision="0" />
-          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="IdTipo" Type="Int32" />
-          <Property Name="ImgDoc" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="Opened" Type="Int32" />
-          <Property Name="Status" Type="Int32" />
-          <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_GCliente" FromRole="Gestion" ToRole="Cliente" />
-          <NavigationProperty Name="Departamentos" Relationship="CSercoDBModel.fk_GDpto" FromRole="Gestion" ToRole="Departamentos" />
-          <NavigationProperty Name="Municipios" Relationship="CSercoDBModel.fk_GMncpo" FromRole="Gestion" ToRole="Municipios" />
-          <NavigationProperty Name="TipoAcuerdo" Relationship="CSercoDBModel.fk_IdTipo" FromRole="Gestion" ToRole="TipoAcuerdo" />
-          <NavigationProperty Name="Comentarios" Relationship="CSercoDBModel.fk_idGest" FromRole="Gestion" ToRole="Comentarios" />
         </EntityType>
         <EntityType Name="Justify">
           <Key>
@@ -615,7 +567,6 @@
           <Property Name="IdDpto" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_Mncpo" FromRole="Municipios" ToRole="Cliente" />
           <NavigationProperty Name="Departamentos" Relationship="CSercoDBModel.fk_idDpto" FromRole="Municipios" ToRole="Departamentos" />
-          <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_GMncpo" FromRole="Municipios" ToRole="Gestion" />
         </EntityType>
         <EntityType Name="RolesUsuario">
           <Key>
@@ -702,18 +653,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_GCliente">
-          <End Type="CSercoDBModel.Cliente" Role="Cliente" Multiplicity="1" />
-          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="IdCliente" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdCliente" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_Mncpo">
           <End Type="CSercoDBModel.Municipios" Role="Municipios" Multiplicity="0..1" />
           <End Type="CSercoDBModel.Cliente" Role="Cliente" Multiplicity="*" />
@@ -738,18 +677,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_GDpto">
-          <End Type="CSercoDBModel.Departamentos" Role="Departamentos" Multiplicity="0..1" />
-          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Departamentos">
-              <PropertyRef Name="IdDpto" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdDpto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="fk_idDpto">
           <End Type="CSercoDBModel.Departamentos" Role="Departamentos" Multiplicity="1" />
           <End Type="CSercoDBModel.Municipios" Role="Municipios" Multiplicity="*" />
@@ -759,30 +686,6 @@
             </Principal>
             <Dependent Role="Municipios">
               <PropertyRef Name="IdDpto" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_GMncpo">
-          <End Type="CSercoDBModel.Municipios" Role="Municipios" Multiplicity="0..1" />
-          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Municipios">
-              <PropertyRef Name="IdMncpo" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdMncpo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="fk_IdTipo">
-          <End Type="CSercoDBModel.TipoAcuerdo" Role="TipoAcuerdo" Multiplicity="0..1" />
-          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TipoAcuerdo">
-              <PropertyRef Name="IdTipo" />
-            </Principal>
-            <Dependent Role="Gestion">
-              <PropertyRef Name="IdTipo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -815,18 +718,6 @@
           <Property Name="Status" Type="Int32" />
           <NavigationProperty Name="Gestion" Relationship="CSercoDBModel.fk_idGest" FromRole="Comentarios" ToRole="Gestion" />
         </EntityType>
-        <Association Name="fk_idGest">
-          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="1" />
-          <End Type="CSercoDBModel.Comentarios" Role="Comentarios" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gestion">
-              <PropertyRef Name="IdGestion" />
-            </Principal>
-            <Dependent Role="Comentarios">
-              <PropertyRef Name="IdGestion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="ClientFlag">
           <Key>
             <PropertyRef Name="idFlag" />
@@ -863,6 +754,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Gestion">
+          <Key>
+            <PropertyRef Name="IdGestion" />
+          </Key>
+          <Property Name="IdGestion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="CodPrestamo" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaGestion" Type="DateTime" Precision="0" />
+          <Property Name="IdTipo" Type="Int32" />
+          <Property Name="ImgDoc" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="Cliente" Relationship="CSercoDBModel.fk_GCliente" FromRole="Gestion" ToRole="Cliente" />
+          <NavigationProperty Name="Comentarios" Relationship="CSercoDBModel.fk_idGest" FromRole="Gestion" ToRole="Comentarios" />
+          <NavigationProperty Name="TipoAcuerdo" Relationship="CSercoDBModel.fk_IdTipo" FromRole="Gestion" ToRole="TipoAcuerdo" />
+        </EntityType>
+        <Association Name="fk_GCliente">
+          <End Type="CSercoDBModel.Cliente" Role="Cliente" Multiplicity="1" />
+          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_idGest">
+          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="1" />
+          <End Type="CSercoDBModel.Comentarios" Role="Comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gestion">
+              <PropertyRef Name="IdGestion" />
+            </Principal>
+            <Dependent Role="Comentarios">
+              <PropertyRef Name="IdGestion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_IdTipo">
+          <End Type="CSercoDBModel.TipoAcuerdo" Role="TipoAcuerdo" Multiplicity="0..1" />
+          <End Type="CSercoDBModel.Gestion" Role="Gestion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TipoAcuerdo">
+              <PropertyRef Name="IdTipo" />
+            </Principal>
+            <Dependent Role="Gestion">
+              <PropertyRef Name="IdTipo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="fnPagerGestion_Result">
+          <Property Type="Int32" Name="IdGestion" Nullable="true" />
+          <Property Type="Int32" Name="IdCliente" Nullable="true" />
+          <Property Type="Int32" Name="IdUser" Nullable="true" />
+          <Property Type="String" Name="CodPrestamo" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="FechaGestion" Nullable="true" Precision="10" />
+          <Property Type="Int32" Name="IdTipo" Nullable="true" />
+          <Property Type="Binary" Name="ImgDoc" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -930,26 +882,6 @@
                 <ScalarProperty Name="ISOCode" ColumnName="ISOCode" />
                 <ScalarProperty Name="DptoName" ColumnName="DptoName" />
                 <ScalarProperty Name="IdDpto" ColumnName="IdDpto" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gestion">
-            <EntityTypeMapping TypeName="CSercoDBModel.Gestion">
-              <MappingFragment StoreEntitySet="Gestion">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Opened" ColumnName="Opened" />
-                <ScalarProperty Name="ImgDoc" ColumnName="ImgDoc" />
-                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="FechaGestion" ColumnName="FechaGestion" />
-                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
-                <ScalarProperty Name="Urbanizacion" ColumnName="Urbanizacion" />
-                <ScalarProperty Name="IdMncpo" ColumnName="IdMncpo" />
-                <ScalarProperty Name="IdDpto" ColumnName="IdDpto" />
-                <ScalarProperty Name="NameDeudor" ColumnName="NameDeudor" />
-                <ScalarProperty Name="CodPrestamo" ColumnName="CodPrestamo" />
-                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
-                <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1036,6 +968,33 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Gestion">
+            <EntityTypeMapping TypeName="CSercoDBModel.Gestion">
+              <MappingFragment StoreEntitySet="Gestion">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ImgDoc" ColumnName="ImgDoc" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="FechaGestion" ColumnName="FechaGestion" />
+                <ScalarProperty Name="CodPrestamo" ColumnName="CodPrestamo" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fnPagerGestion" FunctionName="CSercoDBModel.Store.fnPagerGestion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSercoDBModel.fnPagerGestion_Result">
+                <ScalarProperty Name="IdGestion" ColumnName="IdGestion" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="CodPrestamo" ColumnName="CodPrestamo" />
+                <ScalarProperty Name="FechaGestion" ColumnName="FechaGestion" />
+                <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
+                <ScalarProperty Name="ImgDoc" ColumnName="ImgDoc" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

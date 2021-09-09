@@ -31,7 +31,6 @@ namespace CSerco.SQL.DataContext
         public virtual DbSet<CheckIn> CheckIn { get; set; }
         public virtual DbSet<Cliente> Cliente { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
-        public virtual DbSet<Gestion> Gestion { get; set; }
         public virtual DbSet<Justify> Justify { get; set; }
         public virtual DbSet<Municipios> Municipios { get; set; }
         public virtual DbSet<RolesUsuario> RolesUsuario { get; set; }
@@ -39,6 +38,7 @@ namespace CSerco.SQL.DataContext
         public virtual DbSet<Usuarios> Usuarios { get; set; }
         public virtual DbSet<Comentarios> Comentarios { get; set; }
         public virtual DbSet<ClientFlag> ClientFlag { get; set; }
+        public virtual DbSet<Gestion> Gestion { get; set; }
     
         [DbFunction("CSercoDBEntities1", "fnPager")]
         public virtual IQueryable<fnPager_Result> fnPager(Nullable<int> page, Nullable<int> cantReg, Nullable<int> idUser)
@@ -56,6 +56,24 @@ namespace CSerco.SQL.DataContext
                 new ObjectParameter("IdUser", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fnPager_Result>("[CSercoDBEntities1].[fnPager](@page, @cantReg, @IdUser)", pageParameter, cantRegParameter, idUserParameter);
+        }
+    
+        [DbFunction("CSercoDBEntities1", "fnPagerGestion")]
+        public virtual IQueryable<fnPagerGestion_Result> fnPagerGestion(Nullable<int> page, Nullable<int> cantReg, Nullable<int> idUser)
+        {
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var cantRegParameter = cantReg.HasValue ?
+                new ObjectParameter("cantReg", cantReg) :
+                new ObjectParameter("cantReg", typeof(int));
+    
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fnPagerGestion_Result>("[CSercoDBEntities1].[fnPagerGestion](@page, @cantReg, @IdUser)", pageParameter, cantRegParameter, idUserParameter);
         }
     }
 }

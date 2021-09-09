@@ -18,7 +18,6 @@ namespace CSerco.SQL.DataContext
         public Departamentos()
         {
             this.Cliente = new HashSet<Cliente>();
-            this.Gestion = new HashSet<Gestion>();
             this.Municipios = new HashSet<Municipios>();
         }
     
@@ -28,8 +27,6 @@ namespace CSerco.SQL.DataContext
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cliente> Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gestion> Gestion { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Municipios> Municipios { get; set; }
     }

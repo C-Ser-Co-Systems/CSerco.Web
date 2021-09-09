@@ -10,27 +10,16 @@
 namespace CSerco.SQL.DataContext
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Gestion
+    public partial class fnPagerGestion_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Gestion()
-        {
-            this.Comentarios = new HashSet<Comentarios>();
-        }
-    
-        public int IdGestion { get; set; }
-        public int IdCliente { get; set; }
+        public Nullable<int> IdGestion { get; set; }
+        public Nullable<int> IdCliente { get; set; }
+        public Nullable<int> IdUser { get; set; }
         public string CodPrestamo { get; set; }
         public Nullable<System.DateTime> FechaGestion { get; set; }
         public Nullable<int> IdTipo { get; set; }
         public byte[] ImgDoc { get; set; }
         public Nullable<int> Status { get; set; }
-    
-        public virtual Cliente Cliente { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Comentarios> Comentarios { get; set; }
-        public virtual TipoAcuerdo TipoAcuerdo { get; set; }
     }
 }
