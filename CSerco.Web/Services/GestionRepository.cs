@@ -7,6 +7,7 @@ using CSerco.Web.Models;
 using CSerco.SQL.DataContext;
 using System.IO;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace CSerco.Web.Services
 {
@@ -71,6 +72,55 @@ namespace CSerco.Web.Services
                 CodPrestamo = Data.CodP
             };
             return model;
+        }
+
+        public bool NewGestion(GestionVM model)
+        {
+            int validarFlags = db.ClientFlag.Where(x => x.IdCliente == model.idCliente && x.Status == 1).Count();
+            try
+            {
+                if (validarFlags > 0)
+                {
+                    //Añadimos la primera gestion del cliente
+                    Gestion DbModel = new Gestion
+                    {
+                        IdCliente = model.idCliente,
+                        CodPrestamo = model.CodPrestamo,
+                        FechaGestion = DateTime.Today,
+                        IdTipo = model.IdTipo
+                    };
+                    db.Gestion.Add(DbModel);
+                    db.SaveChanges();
+                    //Como tiene un flag, se da debaja el flag para detener la ALERT
+                    var Flag = db.ClientFlag.Where(x => x.IdCliente == x.IdCliente).Single();
+                    Flag.Status = 0;
+                    db.Entry(Flag).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    var LastGestion = db.Gestion.Where(x => x.IdCliente == model.idCliente).Single();
+                    LastGestion.Status = 0;
+                    db.Entry(LastGestion).State = EntityState.Modified;
+                    db.SaveChanges();
+                    Gestion DbModel = new Gestion
+                    {
+                        IdCliente = model.idCliente,
+                        CodPrestamo = model.CodPrestamo,
+                        FechaGestion = model.FechaGestion,
+                        IdTipo = model.IdTipo
+                    };
+
+                    db.Gestion.Add(DbModel);
+                    db.SaveChanges();
+                    return true;
+                }
+            }catch(Exception e)
+            {
+                return false;
+            }
         }
     }
 }
