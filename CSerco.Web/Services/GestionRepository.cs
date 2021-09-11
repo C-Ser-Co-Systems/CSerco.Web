@@ -8,6 +8,7 @@ using CSerco.SQL.DataContext;
 using System.IO;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Diagnostics;
 
 namespace CSerco.Web.Services
 {
@@ -119,6 +120,7 @@ namespace CSerco.Web.Services
                 }
             }catch(Exception e)
             {
+                Debug.WriteLine("Exception Message: " + e.Message);
                 return false;
             }
         }

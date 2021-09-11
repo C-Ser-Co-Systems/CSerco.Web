@@ -75,5 +75,23 @@ namespace CSerco.SQL.DataContext
     
             return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fnPagerGestion_Result>("[CSercoDBEntities1].[fnPagerGestion](@page, @cantReg, @IdUser)", pageParameter, cantRegParameter, idUserParameter);
         }
+    
+        [DbFunction("CSercoDBEntities1", "fnPagerCliente")]
+        public virtual IQueryable<fnPagerCliente_Result> fnPagerCliente(Nullable<int> page, Nullable<int> cantReg, Nullable<int> idUser)
+        {
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("page", page) :
+                new ObjectParameter("page", typeof(int));
+    
+            var cantRegParameter = cantReg.HasValue ?
+                new ObjectParameter("cantReg", cantReg) :
+                new ObjectParameter("cantReg", typeof(int));
+    
+            var idUserParameter = idUser.HasValue ?
+                new ObjectParameter("IdUser", idUser) :
+                new ObjectParameter("IdUser", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.CreateQuery<fnPagerCliente_Result>("[CSercoDBEntities1].[fnPagerCliente](@page, @cantReg, @IdUser)", pageParameter, cantRegParameter, idUserParameter);
+        }
     }
 }

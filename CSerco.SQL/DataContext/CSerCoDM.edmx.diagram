@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="CSercoDBModel.Municipios" Width="1.5" PointX="6" PointY="10.625" />
         <EntityTypeShape EntityType="CSercoDBModel.RolesUsuario" Width="1.5" PointX="0.75" PointY="7.25" />
         <EntityTypeShape EntityType="CSercoDBModel.TipoAcuerdo" Width="1.5" PointX="8.25" PointY="3.25" />
-        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="CSercoDBModel.Usuarios" Width="1.5" PointX="2.625" PointY="6.75" />
         <AssociationConnector Association="CSercoDBModel.fk_CUser" />
         <AssociationConnector Association="CSercoDBModel.fk_CheckIn" />
         <AssociationConnector Association="CSercoDBModel.fk_CkUser" />

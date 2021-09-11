@@ -29,6 +29,11 @@ namespace CSerco.Web.Controllers
             return View(model);
         }
 
+        public ActionResult ClientList(int? page)
+        {
+            return View();
+        }
+
         public ActionResult GestionList(int? page)
         {
             if (_manejoClienteServices.verifyClientsFlags())
@@ -128,7 +133,6 @@ namespace CSerco.Web.Controllers
         {
             CarteraVM model = _manejoCarteraServices.getCarteraById(id);
             string partial = RenderPartialToString("~/Views/Home/_PartialDetalleCartera.cshtml", model);
-
 
             return Json(new { partial }, JsonRequestBehavior.AllowGet);
         }

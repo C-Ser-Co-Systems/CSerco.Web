@@ -314,6 +314,23 @@
             </CollectionType>
           </ReturnType>
         </Function>
+        <Function Name="fnPagerCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="page" Type="int" Mode="In" />
+          <Parameter Name="cantReg" Type="int" Mode="In" />
+          <Parameter Name="IdUser" Type="int" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="IdCliente" Type="int" />
+                <Property Name="Nombre" Type="varchar" MaxLength="120" />
+                <Property Name="DUI" Type="varchar" MaxLength="12" />
+                <Property Name="Direccion" Type="varchar" MaxLength="200" />
+                <Property Name="Tel" Type="varchar" MaxLength="15" />
+                <Property Name="FLastUpdate" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
         <Function Name="fnPagerGestion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="page" Type="int" Mode="In" />
           <Parameter Name="cantReg" Type="int" Mode="In" />
@@ -474,6 +491,11 @@
             <End Role="Gestion" EntitySet="Gestion" />
           </AssociationSet>
           <FunctionImport Name="fnPagerGestion" IsComposable="true" ReturnType="Collection(CSercoDBModel.fnPagerGestion_Result)">
+            <Parameter Name="page" Mode="In" Type="Int32" />
+            <Parameter Name="cantReg" Mode="In" Type="Int32" />
+            <Parameter Name="IdUser" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="fnPagerCliente" IsComposable="true" ReturnType="Collection(CSercoDBModel.fnPagerCliente_Result)">
             <Parameter Name="page" Mode="In" Type="Int32" />
             <Parameter Name="cantReg" Mode="In" Type="Int32" />
             <Parameter Name="IdUser" Mode="In" Type="Int32" />
@@ -815,6 +837,14 @@
           <Property Type="Binary" Name="ImgDoc" Nullable="true" />
           <Property Type="Int32" Name="Status" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="fnPagerCliente_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="true" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="120" />
+          <Property Type="String" Name="DUI" Nullable="true" MaxLength="12" />
+          <Property Type="String" Name="Direccion" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Tel" Nullable="true" MaxLength="15" />
+          <Property Type="DateTime" Name="FLastUpdate" Nullable="true" Precision="10" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -992,6 +1022,18 @@
                 <ScalarProperty Name="IdTipo" ColumnName="IdTipo" />
                 <ScalarProperty Name="ImgDoc" ColumnName="ImgDoc" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="fnPagerCliente" FunctionName="CSercoDBModel.Store.fnPagerCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CSercoDBModel.fnPagerCliente_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="DUI" ColumnName="DUI" />
+                <ScalarProperty Name="Direccion" ColumnName="Direccion" />
+                <ScalarProperty Name="Tel" ColumnName="Tel" />
+                <ScalarProperty Name="FLastUpdate" ColumnName="FLastUpdate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

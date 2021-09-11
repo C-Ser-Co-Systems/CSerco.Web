@@ -83,6 +83,9 @@
     <Compile Include="DataContext\Departamentos.cs">
       <DependentUpon>CSerCoDM.tt</DependentUpon>
     </Compile>
+    <Compile Include="DataContext\fnPagerCliente_Result.cs">
+      <DependentUpon>CSerCoDM.tt</DependentUpon>
+    </Compile>
     <Compile Include="DataContext\fnPagerGestion_Result.cs">
       <DependentUpon>CSerCoDM.tt</DependentUpon>
     </Compile>

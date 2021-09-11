@@ -16,6 +16,30 @@ namespace CSerco.Web.Services
         readonly CSercoDBEntities1 db = new CSercoDBEntities1();
         readonly SessionData session = new SessionData();
 
+        public ClienteVM getClientList(int page)
+        {
+            int idUser = Convert.ToInt32(session.getSession("User"));
+            ClienteVM model = new ClienteVM
+            {
+                ClientLst = new List<ClienteVM>()
+            };
+            var DbList = db.fnPagerCliente(page, 6, idUser);
+            foreach(var item in DbList)
+            {
+                model.ClientLst.Add(new ClienteVM
+                {
+                    IdCliente = (int)item.IdCliente,
+                    Nombre = item.Nombre,
+                    DUI = item.DUI,
+                    Direcc = item.Direccion,
+                    Tel = item.Tel,
+                    FLastUpd = (DateTime)item.FLastUpdate
+                });
+            }
+
+            return model;
+        }
+
         public bool NewClient(ClienteVM model)
         {
             try
