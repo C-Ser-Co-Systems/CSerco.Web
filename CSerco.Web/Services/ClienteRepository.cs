@@ -36,45 +36,58 @@ namespace CSerco.Web.Services
                     FLastUpd = (DateTime)item.FLastUpdate
                 });
             }
-
             return model;
+        }
+
+        public bool ValidarDUI(string dui)
+        {
+            return !db.Cliente.Any(x => x.DUI == dui);
         }
 
         public bool NewClient(ClienteVM model)
         {
+            int idUser = Convert.ToInt32(session.getSession("User"));
+            int flagActiva = db.ClientFlag.Where(x => x.IdUser == idUser && x.Status == 1).Count();
             try
             {
-                var Cartera = db.Cartera.Where(x => x.IdCartera == model.IdCartera).Single();
-                Cliente DbModel = new Cliente
+                if(flagActiva == 0)
                 {
-                    Nombre = model.Nombre,
-                    DUI = model.DUI,
-                    NIT = model.NIT,
-                    IdDpto = model.idDpto,
-                    IdMncpo = model.idMncpo,
-                    Direccion = model.Direcc,
-                    LugarT = model.LTrabajo,
-                    Tel = model.Tel,
-                    Tel2 = model.Tel2,
-                    IdUserRegistra = Convert.ToInt32(session.getSession("User")),
-                    IdUser = Convert.ToInt32(session.getSession("User")),
-                    FLastUpdate = DateTime.Today,
-                    Status = 1
-                };
-                db.Cliente.Add(DbModel);
-                db.SaveChanges();
-                //Hacemos la detección del ultimo id insertado en la base para el cliente nuevo
-                //Se procede a levantar la flag del cliente, que es indicador de cliente no gestionado (pero si registrado)
-                var idC = DbModel.IdCliente;
-                ClientFlag Flag = new ClientFlag { IdCliente = idC, Status = 1, IdUser = Convert.ToInt32(session.getSession("User")), CodP = Cartera.NCredito };
-                db.ClientFlag.Add(Flag);
-                db.SaveChanges();
-                //Eliminamos el registro de la cartera, a partir de este punto
-                //Toda gestion adicional debera ser ingresada a partir del cliente
-                Cartera.Status = 0;
-                db.Entry(Cartera).State = EntityState.Modified;
-                db.SaveChanges();
-                return true;
+                    var Cartera = db.Cartera.Where(x => x.IdCartera == model.IdCartera).Single();
+                    Cliente DbModel = new Cliente
+                    {
+                        Nombre = model.Nombre,
+                        DUI = model.DUI,
+                        NIT = model.NIT,
+                        IdDpto = model.idDpto,
+                        IdMncpo = model.idMncpo,
+                        Direccion = model.Direcc,
+                        LugarT = model.LTrabajo,
+                        Tel = model.Tel,
+                        Tel2 = model.Tel2,
+                        IdUserRegistra = Convert.ToInt32(session.getSession("User")),
+                        IdUser = Convert.ToInt32(session.getSession("User")),
+                        FLastUpdate = DateTime.Today,
+                        Status = 1
+                    };
+                    db.Cliente.Add(DbModel);
+                    db.SaveChanges();
+                    //Hacemos la detección del ultimo id insertado en la base para el cliente nuevo
+                    //Se procede a levantar la flag del cliente, que es indicador de cliente no gestionado (pero si registrado)
+                    var idC = DbModel.IdCliente;
+                    ClientFlag Flag = new ClientFlag { IdCliente = idC, Status = 1, IdUser = Convert.ToInt32(session.getSession("User")), CodP = Cartera.NCredito };
+                    db.ClientFlag.Add(Flag);
+                    db.SaveChanges();
+                    //Eliminamos el registro de la cartera, a partir de este punto
+                    //Toda gestion adicional debera ser ingresada a partir del cliente
+                    Cartera.Status = 0;
+                    db.Entry(Cartera).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }catch(Exception e)
             {
                 Debug.WriteLine("Exception Message: " + e.Message);
@@ -88,7 +101,7 @@ namespace CSerco.Web.Services
             int c = db.ClientFlag.Where(x => x.IdUser == id && x.Status == 1).Count();
             if(c > 0)
             {
-                var client = db.ClientFlag.Where(x => x.IdUser == id && x.Status == 1).Single();
+                var client = db.ClientFlag.Where(x => x.IdUser == id && x.Status == 1).ToList().LastOrDefault();
                 return client.IdCliente;
             }
 
@@ -135,7 +148,6 @@ namespace CSerco.Web.Services
                     Value = item.IdMncpo.ToString()
                 });
             }
-
             return List;
         }
 
@@ -185,7 +197,7 @@ namespace CSerco.Web.Services
 
         public bool ValidationClientExist(string codP)
         {
-            //Devuelve true si hay una gestion existente para cliente (es decir que el cliente existe), false si no existe!
+            //Devuelve true si hay una o mas gestiones para cliente (es decir que el cliente existe), false si no existe!
             int Count = db.Gestion.Where(x => x.CodPrestamo == codP).Count();
             if (Count > 0)
                 return true;

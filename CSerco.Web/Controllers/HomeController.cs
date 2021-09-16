@@ -58,14 +58,13 @@ namespace CSerco.Web.Controllers
             if (_manejoClienteServices.ValidationClientExist(CodP))
             {
                 ClienteVM model = _manejoClienteServices.GetClientByCodP(CodP);
-                RedirectToAction("EditarCliente", "Home", model);
+                return RedirectToAction("EditarCliente", "Home", model);
             }
             else
             {
                 ClienteVM model = _manejoClienteServices.fromCarteraToClient(CodP);
                 return View(model);
             }
-            return View();
         }
 
         [HttpPost]
@@ -76,10 +75,10 @@ namespace CSerco.Web.Controllers
                 if (_manejoClienteServices.NewClient(model))
                 {
                     model.IdCliente = _manejoClienteServices.getUnmanageClientId();
-                    RedirectToAction("RegistrarGestion", "Home", model.IdCliente);
+                    return RedirectToAction("RegistrarGestion", "Home", new { idClient = model.IdCliente });
                 }
             }
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public ActionResult EditarCliente(int id)
@@ -95,7 +94,7 @@ namespace CSerco.Web.Controllers
 
         public ActionResult RegistrarGestion(int idClient)
         {
-            GestionVM model = _manejoGestionServices.getClientDataFromGestion(idClient);
+            GestionVM model = _manejoGestionServices.getClientDataToGestion(idClient);
             ViewBag.TipoGestion = _manejoGestionServices.getTipoList();
             return View(model);
         }
@@ -113,6 +112,12 @@ namespace CSerco.Web.Controllers
         {
             var municipios = _manejoClienteServices.getMncpoByDpto(id);
             return Json(municipios, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DUIvalidator(string DUI) 
+        {
+            bool Exito = _manejoClienteServices.ValidarDUI(DUI);
+            return Json(Exito, JsonRequestBehavior.AllowGet);
         }
 
         public string RenderPartialToString(string ViewName, object model)

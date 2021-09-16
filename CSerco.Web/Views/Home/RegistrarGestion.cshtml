@@ -1,0 +1,63 @@
+﻿@model CSerco.Web.Models.GestionVM
+
+@{
+    ViewBag.Title = "RegistrarGestion";
+    Layout = "~/Views/Shared/_SysLayout.cshtml";
+}
+
+<center><h2>Registrar Gestion</h2></center>
+
+@using (Html.BeginForm("RegistrarGestion", "Home", FormMethod.Post, new { role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal form-bordered-p">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(x => x.idCliente)
+        <div class="row">
+            <div class="col-sm-3 col-md-3 col-lg-3">
+                <div class="form-group">
+                    <label>Número de Credito: </label>
+                    @Html.EditorFor(model => model.CodPrestamo, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.CodPrestamo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-5 col-md-5 col-lg-5">
+                <div class="form-group">
+                    <label>Tipo de Acuerdo:</label>
+                    @Html.DropDownListFor(x => x.IdTipo, new List<SelectListItem>(ViewBag.TipoGestion), "Tipo de Acuerdo", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IdTipo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <div class="form-group">
+                    <label>Documentación Adicional:</label>
+                    @Html.TextBoxFor(model => model.FileDoc, new { @class = "form-control", @type = "file", @accept = "application/pdf,application/vnd.ms-excel" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="form-group">
+                    <label>Descripción: </label>
+                    @Html.TextAreaFor(model => model.Descripcion, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Descripcion, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="GUARDAR" class="btn btn-success" />
+                <a href="@Url.Action("Index", "Home")" value="CANCELAR" class="btn btn-danger">CANCELAR</a>
+                <br />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

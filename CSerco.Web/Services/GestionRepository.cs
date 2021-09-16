@@ -64,59 +64,91 @@ namespace CSerco.Web.Services
             return TipoLst;
         }
 
-        public GestionVM getClientDataFromGestion(int idC)
+        public GestionVM getClientDataToGestion(int idC)
         {
-            var Data = db.ClientFlag.Where(x => x.IdCliente == idC && x.Status == 1).Single();
-            GestionVM model = new GestionVM
+            int count = db.ClientFlag.Where(x => x.IdCliente == idC && x.Status == 1).Count();
+            GestionVM model;
+            if (count > 0)
             {
-                idCliente = idC,
-                CodPrestamo = Data.CodP
-            };
+                var Data = db.ClientFlag.Where(x => x.IdCliente == idC && x.Status == 1).Single();
+                model = new GestionVM
+                {
+                    idCliente = idC,
+                    CodPrestamo = Data.CodP
+                };
+            }
+            else
+            {
+                var Data = db.ClientFlag.Where(x => x.IdCliente == idC).Single();
+                model = new GestionVM
+                {
+                    idCliente = idC,
+                    CodPrestamo = Data.CodP
+                };
+            }
             return model;
         }
 
         public bool NewGestion(GestionVM model)
         {
+            int idUser = Convert.ToInt32(session.getSession("User"));
             int validarFlags = db.ClientFlag.Where(x => x.IdCliente == model.idCliente && x.Status == 1).Count();
+            int flagActiva = db.ClientFlag.Where(x => x.IdUser == idUser && x.Status == 1).Count();
             try
             {
-                if (validarFlags > 0)
+                if(flagActiva > 0)
                 {
-                    //Añadimos la primera gestion del cliente
-                    Gestion DbModel = new Gestion
+                    if (validarFlags == 0)
                     {
-                        IdCliente = model.idCliente,
-                        CodPrestamo = model.CodPrestamo,
-                        FechaGestion = DateTime.Today,
-                        IdTipo = model.IdTipo
-                    };
-                    db.Gestion.Add(DbModel);
-                    db.SaveChanges();
-                    //Como tiene un flag, se da debaja el flag para detener la ALERT
-                    var Flag = db.ClientFlag.Where(x => x.IdCliente == x.IdCliente).Single();
-                    Flag.Status = 0;
-                    db.Entry(Flag).State = EntityState.Modified;
-                    db.SaveChanges();
+                        //Añadimos la primera gestion del cliente
+                        Gestion DbModel = new Gestion
+                        {
+                            IdCliente = model.idCliente,
+                            CodPrestamo = model.CodPrestamo,
+                            FechaGestion = DateTime.Today,
+                            IdTipo = model.IdTipo
+                        };
+                        db.Gestion.Add(DbModel);
+                        db.SaveChanges();
+                        //Se entiende que el comentario es aparte de la gestion
+                        db.Comentarios.Add(new Comentarios
+                        {
+                            IdGestion = DbModel.IdGestion,
+                            Comentario = model.Descripcion,
+                            FechaRegistro = DateTime.Today,
+                            Status = 1
+                        });
+                        db.SaveChanges();
+                        //Como tiene un flag, se da debaja el flag para detener la ALERT
+                        var Flag = db.ClientFlag.Where(x => x.IdCliente == x.IdCliente).Single();
+                        Flag.Status = 0;
+                        db.Entry(Flag).State = EntityState.Modified;
+                        db.SaveChanges();
 
-                    return true;
+                        return true;
+                    }
+                    else
+                    {
+                        var LastGestion = db.Gestion.Where(x => x.IdCliente == model.idCliente && x.Status == 1).Single();
+                        LastGestion.Status = 0;
+                        db.Entry(LastGestion).State = EntityState.Modified;
+                        db.SaveChanges();
+                        Gestion DbModel = new Gestion
+                        {
+                            IdCliente = model.idCliente,
+                            CodPrestamo = model.CodPrestamo,
+                            FechaGestion = model.FechaGestion,
+                            IdTipo = model.IdTipo
+                        };
+
+                        db.Gestion.Add(DbModel);
+                        db.SaveChanges();
+                        return true;
+                    }
                 }
                 else
                 {
-                    var LastGestion = db.Gestion.Where(x => x.IdCliente == model.idCliente).Single();
-                    LastGestion.Status = 0;
-                    db.Entry(LastGestion).State = EntityState.Modified;
-                    db.SaveChanges();
-                    Gestion DbModel = new Gestion
-                    {
-                        IdCliente = model.idCliente,
-                        CodPrestamo = model.CodPrestamo,
-                        FechaGestion = model.FechaGestion,
-                        IdTipo = model.IdTipo
-                    };
-
-                    db.Gestion.Add(DbModel);
-                    db.SaveChanges();
-                    return true;
+                    return false;
                 }
             }catch(Exception e)
             {

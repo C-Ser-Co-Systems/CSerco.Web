@@ -4,19 +4,16 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
-
 namespace CSerco.Web.Models
 {
-    public class ClienteVM : BaseModel
+    public class ClienteEditVM
     {
         public int IdCartera { get; set; }
         public int IdCliente { get; set; }
-        [Required(ErrorMessage ="¡El nombre completo es requerido!")]
+        [Required(ErrorMessage = "¡El nombre completo es requerido!")]
         public string Nombre { get; set; }
-        [Required(ErrorMessage ="¡El DUI es requerido!")]
+        [Required(ErrorMessage = "¡El DUI es requerido!")]
         [RegularExpression(@"^\d{8}(-){1}\d{1}$", ErrorMessage = "¡El DUI ingresado no es válido!")]
-        [Remote("DUIvalidator", "Home", ErrorMessage = "¡Este DUI ya se encuentra registrado!")]
         public string DUI { get; set; }
         public string NIT { get; set; }
         [Required(ErrorMessage = "¡Por favor seleccione un Departamento!")]
@@ -34,7 +31,5 @@ namespace CSerco.Web.Models
         public int IdUserT { get; set; }
         public int IdUserReg { get; set; }
         public DateTime FLastUpd { get; set; }
-
-        public List<ClienteVM> ClientLst { get; set; }
     }
 }

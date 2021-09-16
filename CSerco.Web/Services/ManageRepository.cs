@@ -25,10 +25,38 @@ namespace CSerco.Web.Services
                 {
                     session.setSession("User", user.IdUser);
                     session.setSession("Rol", user.IdRol);
+                    if (!CheckIn(user.IdUser))
+                    {
+                        db.CheckIn.Add(new CheckIn
+                        {
+                            IdUser = user.IdUser,
+                            Fecha = DateTime.Today.Date,
+                            Hora = DateTime.Now.ToString("HH:mm:ss"),
+                            Status = 1
+                        });
+                        db.SaveChanges();
+                    }
                     return true;
                 }
             }
+            return false;
+        }
 
+        public bool CheckIn(int idUser)
+        {
+            int count = db.CheckIn.Where(x => x.IdUser == idUser && x.Status == 1).Count();
+            if(count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                var userChekIn = db.CheckIn.Where(x => x.IdUser == idUser && x.Status == 1).ToList().LastOrDefault();
+                if (userChekIn.Fecha == DateTime.Today.Date)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 

@@ -64,11 +64,22 @@
             if (message == "ALERT") {
                 Swal.fire({
                     title: "Oops!",
-                    text: "Parece que tienes clientes sin gestion, por favor verifica que cada uno de los clientes registrados tengan gestiones activas, si se ha ingresado una cliente por error, debera dar de baja al cliente ingresando una gestion y marcando dicha gestion como DESASIGNACIÓN",
+                    text: "Parece que tienes clientes sin gestión, por favor verifica que cada uno de los clientes registrados tengan gestiones activas, si se ha ingresado un cliente por error, deberá dar de baja al cliente ingresando una gestión y marcando dicha gestión como CERRADA",
                     icon: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#008648",
                     confirmButtonText: "Aceptar!",
+                    allowOutsideClick: () => {
+                        const popup = Swal.getPopup()
+                        popup.classList.remove('swal2-show')
+                        setTimeout(() => {
+                            popup.classList.add('animate__animated', 'animate__headShake')
+                        })
+                        setTimeout(() => {
+                            popup.classList.remove('animate__animated', 'animate__headShake')
+                        }, 500)
+                        return false
+                    },
                     closeOnConfirm: true,
                 }).then(result => {
                     if (result.value) {

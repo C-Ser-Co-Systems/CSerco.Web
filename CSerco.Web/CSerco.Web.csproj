@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\CarteraVM.cs" />
+    <Compile Include="Models\ClienteEditVM.cs" />
     <Compile Include="Models\ClienteVM.cs" />
     <Compile Include="Models\GestionVM.cs" />
     <Compile Include="Models\SessionData.cs" />
@@ -267,6 +268,7 @@
     <Content Include="Views\Shared\_Pager.cshtml" />
     <Content Include="Views\Home\_PartialDetalleCartera.cshtml" />
     <Content Include="Views\Home\RegisterClient.cshtml" />
+    <Content Include="Views\Home\RegistrarGestion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
